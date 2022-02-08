@@ -19,7 +19,7 @@
     </div>
 </template>
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Component, Vue } from "vue-property-decorator";
 import { defineComponent, reactive, ref, toRaw } from "vue";
 import { useRouter } from "vue-router"
 import { useStore } from "vuex"

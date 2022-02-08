@@ -7,10 +7,10 @@ import { IGetUserInfo } from "./@types/IUser";
  * @return {Promise}
  */
 
-export const getUserInfo = (params: IGetUserInfo) => {
-  return service({
-    url: "../src/assets/mock/user.json",
-    method: "GET",
-    params,
-  });
-};
+// export const getUserInfo = (params: IGetUserInfo) => {
+//   return service({
+//     url: "/public/mock/user.json",
+//     method: "GET",
+//     params,
+//   });
+// };

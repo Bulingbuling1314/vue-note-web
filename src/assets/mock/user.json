@@ -1,7 +1,20 @@
 [
     {
         "userName": "admin",
-        "passWord": "123456",
-        "rolu": "admin"
+        "password": "123456",
+        "rolu": "admin",
+        "token": 123456789
+    },
+    {
+        "userName": "test",
+        "password": "123456",
+        "rolu": "test",
+        "token": 12345678910
+    },
+    {
+        "userName": "demo",
+        "password": "123456",
+        "rolu": "demo",
+        "token": 1234567891011
     }
 ]

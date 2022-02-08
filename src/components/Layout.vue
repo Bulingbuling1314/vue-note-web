@@ -33,7 +33,8 @@
     </a-layout>
   </a-layout>
 </template>
-<script>
+<script lang="ts">
+import { useStore } from "vuex"
 export default {
   data() {
     return {

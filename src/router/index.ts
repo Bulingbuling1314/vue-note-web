@@ -1,16 +1,20 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Layout from "@/components/Layout.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Layout',
-    component: Layout,
-    meta: {
-        isLogin: true
-    },
-    children: []
-  }
+    redirect: '/login'
+  },
+  {
+      path: '/login',
+      name: 'LOGIN',
+      component: () => import('@/views/login/index.vue'),
+      meta: {}
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/404/index.vue'),
+  },
 ]
 
 const router = createRouter({

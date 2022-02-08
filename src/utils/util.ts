@@ -14,12 +14,15 @@ import { RouteRecordRaw } from 'vue-router'
 //     children: Array<IRouter>
 //     redirect: string
 // }
+const loadView = (view: string) => { // 路由懒加载
+    return () => import(`@/views/${view}/index.vue`)
+};
 
-const formatDynamicRouting = (menuList: any) => {
-    let dynamicRouting = menuList
+const formatDynamicRouting = (routerMap: any) => {
+    let dynamicRouting = routerMap
     for(let item of dynamicRouting) {
-        item.name = item.component.toLocaleUpperCase()
-        item.component = (() => import(`@/views/${item.component}/index.vue`))()
+        item.name = item.name.toLocaleUpperCase()
+        item.component = loadView(item.component)()
         if(item.children && item.children.length > 0) {
             formatDynamicRouting(item.children)
         }
@@ -28,8 +31,24 @@ const formatDynamicRouting = (menuList: any) => {
 }
 
 
+/**
+ *
+ * @param {Array} routes 用户过滤后的路由
+ *
+ * 递归为所有有子路由的路由设置第一个children.path为默认路由
+ */
+const setDefaultRoute = (routes: any[]) => {
+    routes.forEach((v: any, i: number) => {
+        if (v.children && v.children.length > 0) {
+            v.redirect = { name: v.children[0].name }
+            setDefaultRoute(v.children)
+        }
+    })
+}
+
 
 
 export {
-    formatDynamicRouting
+    formatDynamicRouting,
+    setDefaultRoute
 }

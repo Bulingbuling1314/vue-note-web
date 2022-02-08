@@ -19,7 +19,6 @@
     </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import { defineComponent, reactive, ref, toRaw } from "vue";
 import { useRouter } from "vue-router"
 import { useStore } from "vuex"
@@ -52,14 +51,8 @@ export default defineComponent({
             formRef.value.resetFields();
         };
         const login = (form: Object) => {
-            console.log(store)
-            store.dispatch('Login', form)
-            .then(res => {
-                store.dispatch('SetMenu', res.rolu).then(res => {
-                    router.addRoute(res)
-                    console.log(res, 123)
-                    router.push('/home')
-                })
+            store.dispatch('Login', form).then((res) => {
+                router.push('/home')
             })
             .catch(err => {
                 console.log(err)

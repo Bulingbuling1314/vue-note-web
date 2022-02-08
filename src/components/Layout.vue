@@ -1,29 +1,22 @@
 <template>
-  <a-layout id="components-layout-demo-custom-trigger">
-    <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
+  <a-layout>
+    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
-      <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-        <a-menu-item key="1">
-          <a-icon type="user" />
-          <span>nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="video-camera" />
-          <span>nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span>nav 3</span>
+      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
+        <a-menu-item v-for="item in sliderList" :key="item.name" @click="router.push(item.path)">
+          <user-outlined />
+          <span>{{ item.meta.name }}</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <a-icon
+      <a-layout-header style="background: #fff; padding: 0 20px;">
+        <menu-unfold-outlined
+          v-if="collapsed"
           class="trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
           @click="() => (collapsed = !collapsed)"
         />
+        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
       </a-layout-header>
       <a-layout-content
         :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
@@ -34,19 +27,46 @@
   </a-layout>
 </template>
 <script lang="ts">
-import { useStore } from "vuex"
-export default {
-  data() {
+import {
+  UserOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons-vue';
+import { defineComponent, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+export default defineComponent({
+  components: {
+    UserOutlined,
+    VideoCameraOutlined,
+    UploadOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+  },
+  setup() {
+    const store = useStore()
+    console.log(store.getters)
     return {
-      collapsed: false,
+      selectedKeys: ref<string[]>([store.getters.currentMenu]),
+      collapsed: ref<boolean>(false),
+      route: useRoute(),
+      router: useRouter(),
+      sliderList: store.getters.userMenu
     };
   },
-};
+});
 </script>
-<style>
+<style lang="scss" scoped>
 .ant-layout {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  .logo {
+    height: 50px;
+    background-color: red;
+    margin: 10px 20px;
+  }
 }
 #components-layout-demo-custom-trigger .trigger {
   font-size: 18px;
@@ -62,7 +82,11 @@ export default {
 
 #components-layout-demo-custom-trigger .logo {
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.3);
   margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
 }
 </style>

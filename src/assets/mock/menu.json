@@ -1,28 +1,29 @@
 [
     {
-        "rolu": "admin",
-        "menu": [
-            {
-                "name": "首页",
-                "icon": "home",
-                "path": "/home",
-                "component": "home",
-                "meta": {}
-            },
-            {
-                "name": "测试1",
-                "icon": "home",
-                "path": "/test1",
-                "component": "test1",
-                "meta": {}
-            },
-            {
-                "name": "测试2",
-                "icon": "home",
-                "path": "/test2",
-                "component": "test2",
-                "meta": {}
-            }
-        ]
+        "name": "HOME",
+        "path": "/home",
+        "component": "home",
+        "meta": {
+            "icon": "home",
+            "name": "首页"
+        }
+    },
+    {
+        "name": "TEST1",
+        "path": "/test1",
+        "component": "test1",
+        "meta": {
+            "icon": "home",
+            "name": "测试1"
+        }
+    },
+    {
+        "name": "TEST2",
+        "path": "/test2",
+        "component": "test2",
+        "meta": {
+            "icon": "home",
+            "name": "测试2"
+        }
     }
 ]

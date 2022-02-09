@@ -21,10 +21,10 @@ router.beforeEach((to, from, next) => {
   }
   if(!store.getters.userMenu && to.path !== "/login") {
     return store.dispatch("SetMenu").then(() => {
-      next({ ...to, replace: true });
+        next({ ...to, replace: true });
     })
   } else {
-    next();
+    next()
   }
 })
 

@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import RouterView from '@/components/RouterView/index.vue'
 
 /**
  * @description: 处理多层级路由
@@ -22,9 +23,16 @@ const formatDynamicRouting = (routerMap: any) => {
     let dynamicRouting = routerMap
     for(let item of dynamicRouting) {
         item.name = item.name.toLocaleUpperCase()
-        item.component = loadView(item.component)()
+        if(item.children) {
+            item.component = RouterView;
+        } else {
+            item.component = loadView(item.component)
+        }
         if(item.children && item.children.length > 0) {
             formatDynamicRouting(item.children)
+        } else {
+            delete item['children']
+            delete item['redirect']
         }
     }
     return dynamicRouting

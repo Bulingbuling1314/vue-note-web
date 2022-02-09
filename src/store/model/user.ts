@@ -37,7 +37,7 @@ const user = {
                 }
             })
         },
-        async SetMenu({ state, commit }: any) {
+        SetMenu({ state, commit }: any) {
             //处理需要动态的路由
             let routes: Array<any> = formatDynamicRouting(menu);
             const userMenu = {
@@ -47,9 +47,10 @@ const user = {
                 meta: {},
                 children: [...routes]
             }
-            router.addRoute(userMenu);
             commit('SET_USER_MENU', routes)
             setDefaultRoute([userMenu])
+            console.log(userMenu)
+            router.addRoute(userMenu);
         }
     }
 }

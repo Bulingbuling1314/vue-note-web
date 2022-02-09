@@ -5,6 +5,9 @@ import store from './store'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import '@/utils/permission.ts'
+import { setupAntdIcon } from '@/antd/Icons'
 
+const app = createApp(App)
+setupAntdIcon(app) // antd图标
 
-createApp(App).use(store).use(router).use(Antd).mount('#app')
+app.use(store).use(router).use(Antd).mount('#app')

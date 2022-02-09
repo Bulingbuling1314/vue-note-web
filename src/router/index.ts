@@ -6,6 +6,10 @@ const routes: Array<RouteRecordRaw> = [
       name: "login",
       component: () => import("@/views/login/index.vue"),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/404/index.vue'),
+  }
 ];
 
 const router = createRouter({

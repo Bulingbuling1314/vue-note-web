@@ -1,14 +1,14 @@
 import { user as userInfo, menu } from '@/assets/mock/index'
 import router from '@/router'
-import { formatDynamicRouting, setDefaultRoute } from '@/utils/util'
+import { formatDynamicRouting, setDefaultRoute, clone } from '@/utils/util'
 import Layout from "@/components/Layout.vue"
-import { SET_TOKEN } from "@/utils/localStorage"
+import { SET_TOKEN, REMOVE_TOKEN } from "@/utils/localStorage"
 
 const user = {
     state: {
-        userInfo: {},
+        userInfo: null,
         userMenu: null,
-        currentMenu: ""
+        currentMenu: null
     },
     mutations: {
         SET_USER_INFO: (state: any, userInfo: Object) => {
@@ -38,8 +38,9 @@ const user = {
             })
         },
         SetMenu({ state, commit }: any) {
+            const myMenu = clone(menu)
             //处理需要动态的路由
-            let routes: Array<any> = formatDynamicRouting(menu);
+            let routes: Array<any> = formatDynamicRouting(myMenu);
             const userMenu = {
                 path: '/',
                 name: 'LAYOUT',
@@ -51,6 +52,15 @@ const user = {
             setDefaultRoute([userMenu])
             console.log(userMenu)
             router.addRoute(userMenu);
+        },
+
+        // 登出
+        Logout({ commit }: any) {
+            commit('SET_USER_INFO', null)
+            commit('SET_USER_MENU', null)
+            commit('SET_CURRENT_MENU', null)
+            REMOVE_TOKEN()
+            router.replace({ path: "/login" });
         }
     }
 }

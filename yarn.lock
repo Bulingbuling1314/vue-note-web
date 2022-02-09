@@ -7701,10 +7701,10 @@
     "ajv" "^6.12.2"
     "ajv-keywords" "^3.4.1"
 
-"screenfull@^6.0.1":
-  "integrity" "sha512-yzQW+j4zMUBQC51xxWaoDYjxOtl8Kn+xvue3p6v/fv2pIi1jH4AldgVLU8TBfFVgH2x3VXlf3+YiA/AYIPlaew=="
-  "resolved" "https://registry.npmmirror.com/screenfull/-/screenfull-6.0.1.tgz"
-  "version" "6.0.1"
+"screenfull@^5.1.0":
+  "integrity" "sha512-dYaNuOdzr+kc6J6CFcBrzkLCfyGcMg+gWkJ8us93IQ7y1cevhQAugFsaCdMHb6lw8KV3xPzSxzH7zM1dQap9mA=="
+  "resolved" "https://registry.npmmirror.com/screenfull/-/screenfull-5.1.0.tgz"
+  "version" "5.1.0"
 
 "scroll-into-view-if-needed@^2.2.25":
   "integrity" "sha512-hxpAR6AN+Gh53AdAimHM6C8oTN1ppwVZITihix+WqalywBeFcQ6LdQP5ABNl26nX8GTEL7VT+b8lKpdqq65wXg=="

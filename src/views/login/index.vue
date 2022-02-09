@@ -1,47 +1,74 @@
 <template>
-    <div>
-        <img alt="Vue logo" src="@/assets/logo.png" />
-        <a-form ref="formRef" :model="form" :rules="rules">
-            <a-form-item label="Activity name" name="userName">
-                <a-input v-model:value="form.userName" />
-            </a-form-item>
-            <a-form-item label="Sub name" name="password">
-                <a-input v-model:value="form.password" />
-            </a-form-item>
+    <!-- http://bpic.588ku.com/video_listen/588ku_video/19/12/30/18/21/17/video5e09cf9dd0bd4.mp4 -->
+    <div id="userLayout">
+        <div class="video-container">
+            <div :style="fixStyle" class="filter">
+                <a href="">
+                    <img src="@/assets/logo.png" width="500" alt="" />
+                </a>
+                <a-form :label-col="{ span: 8 }" ref="formRef" :model="form" :rules="rules" class="b_form">
+                    <a-form-item label="username" name="userName">
+                        <a-input v-model:value="form.userName" />
+                    </a-form-item>
+                    <a-form-item label="password" name="password">
+                        <a-input v-model:value="form.password" />
+                    </a-form-item>
 
-            <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-                <a-button type="primary" @click="onSubmit">Create</a-button>
-                <a-button style="margin-left: 10px" @click="resetForm"
-                    >Reset</a-button
-                >
-            </a-form-item>
-        </a-form>
+                    <a-form-item :wrapper-col="{ span: 14, offset: 6 }">
+                        <a-button type="primary" @click="onSubmit"
+                            >Lgoin</a-button
+                        >
+                        <a-button style="margin-left: 24px" @click="resetForm"
+                            >Reset</a-button
+                        >
+                    </a-form-item>
+                </a-form>
+            </div>
+            <video
+                :style="fixStyle"
+                autoplay
+                muted
+                loop
+                class="fillWidth"
+                @canplay="canplay"
+            >
+                <source src="@/assets/video/login-bg.mp4" type="video/mp4" />
+                浏览器不支持 video 标签，建议升级浏览器。
+                <source src="@/assets/video/login-bg.mp4" type="video/webm" />
+                浏览器不支持 video 标签，建议升级浏览器。
+            </video>
+            <div class="poster hidden" v-if="!vedioCanPlay">
+                <img :style="fixStyle" src="PATH_TO_JPEG" alt="" />
+            </div>
+        </div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, toRaw } from "vue";
-import { useRouter } from "vue-router"
-import { useStore } from "vuex"
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
+    name: "userLayout",
+
     setup() {
-        const store = useStore()
-        const router = useRouter()
+        const store = useStore();
+        const router = useRouter();
         const formRef = ref();
         const form = reactive({
-            userName: 'admin',
-            password: '123456',
+            userName: "admin",
+            password: "123456",
         });
         const rules = {
             userName: { required: true, message: "Please input userName" },
-            password: { required: true, message: "Please input password" }
+            password: { required: true, message: "Please input password" },
         };
         const onSubmit = () => {
             formRef.value
                 .validate()
                 .then(() => {
                     console.log("values", form, toRaw(form));
-                    login(form)
+                    login(form);
                 })
                 .catch((error: any) => {
                     console.log("error", error);
@@ -51,13 +78,15 @@ export default defineComponent({
             formRef.value.resetFields();
         };
         const login = (form: Object) => {
-            store.dispatch('Login', form).then((res) => {
-                router.push('/home')
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        }
+            store
+                .dispatch("Login", form)
+                .then((res) => {
+                    router.push("/home");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
         return {
             formRef,
             form,
@@ -66,6 +95,88 @@ export default defineComponent({
             resetForm,
         };
     },
+    data() {
+        return {
+            vedioCanPlay: false,
+            fixStyle: "",
+        };
+    },
+    methods: {
+        canplay() {
+            this.vedioCanPlay = true;
+        },
+    },
+    mounted: function () {
+        window.onresize = () => {
+            const windowWidth = document.body.clientWidth;
+            const windowHeight = document.body.clientHeight;
+            const windowAspectRatio = windowHeight / windowWidth;
+            let videoWidth;
+            let videoHeight;
+            if (windowAspectRatio < 0.5625) {
+                videoWidth = windowWidth;
+                videoHeight = videoWidth * 0.5625;
+                this.fixStyle = {
+                    height: windowWidth * 0.5625 + "px",
+                    width: windowWidth + "px",
+                    "margin-bottom": (windowHeight - videoHeight) / 2 + "px",
+                    "margin-left": "initial",
+                };
+            } else {
+                videoHeight = windowHeight;
+                videoWidth = videoHeight / 0.5625;
+                this.fixStyle = {
+                    height: windowHeight + "px",
+                    width: windowHeight / 0.5625 + "px",
+                    "margin-left": (windowWidth - videoWidth) / 2 + "px",
+                    "margin-bottom": "initial",
+                };
+            }
+        };
+        window.onresize();
+    },
 });
 </script>
+<style lang="scss" scoped>
+#userLayout {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #f0f2f5;
+    background-size: 100%;
+    overflow: hidden;
+    .filter {
+        padding: 110px 0 144px;
+        & > a {
+            display: block;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    }
 
+    .b_form {
+        width: 300px;
+        margin: 0 auto;
+    }
+}
+.video-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    .poster {
+        img {
+            z-index: 0;
+            position: absolute;
+        }
+    }
+    video {
+        z-index: 0;
+        position: absolute;
+    }
+    .filter {
+        z-index: 1;
+        position: absolute;
+        background: rgba(0, 0, 0, 0);
+    }
+}
+</style>

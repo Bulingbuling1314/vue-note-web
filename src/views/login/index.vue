@@ -168,8 +168,7 @@ export default defineComponent({
         }
     }
     video {
-        z-index: 0;
-        position: absolute;
+        width: 100%;
     }
     .filter {
         padding: 110px 0 144px;

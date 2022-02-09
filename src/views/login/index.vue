@@ -98,7 +98,7 @@ export default defineComponent({
     data() {
         return {
             vedioCanPlay: false,
-            fixStyle: "",
+            fixStyle: {},
         };
     },
     methods: {
@@ -133,7 +133,6 @@ export default defineComponent({
                 };
             }
         };
-        window.onresize();
     },
 });
 </script>
@@ -146,7 +145,6 @@ export default defineComponent({
     background-size: 100%;
     overflow: hidden;
     .filter {
-        padding: 110px 0 144px;
         & > a {
             display: block;
             text-align: center;
@@ -174,9 +172,12 @@ export default defineComponent({
         position: absolute;
     }
     .filter {
+        padding: 110px 0 144px;
         z-index: 1;
         position: absolute;
         background: rgba(0, 0, 0, 0);
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 </style>

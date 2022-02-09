@@ -5,6 +5,9 @@ function resolve(dir){
 }
 
 module.exports = {
+    publicPath: "./",
+    assetsDir: "static",
+    productionSourceMap: false,
     chainWebpack: config =>{
         config.plugin('html')
         .tap(args => {

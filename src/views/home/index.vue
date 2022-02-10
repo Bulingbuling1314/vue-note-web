@@ -1,7 +1,7 @@
 <template>
   <div class="home">
       <img width="500" src="@/assets/logo02.png" alt="">
-      <h1>一个简洁的后台结构</h1>
+      <h1 class="theme_color_01">一个简洁的后台结构</h1>
       <span>Vue3.0 + Ts + Antd + axios</span>
       <div class="github">
           <a target="_blank" href="https://github.com/Bulingbuling1314/vue-note-web">点我去获取源码</a>

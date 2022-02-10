@@ -1,0 +1,50 @@
+@import "../theme/";
+.ant-layout {
+    width: 100%;
+    height: 100%;
+    .logo {
+        height: 40px;
+        margin: 12px 20px 36px;
+        background: url('~@/assets/logo.png');
+        background-size: 100% 100%;
+    }
+    .b_header {
+        background-color: #fff;
+        padding: 0 0 0 20px;
+        display: flex;
+        justify-content: space-between;
+        span {
+            cursor: pointer;
+        }
+        .b_header_right {
+            display: flex;
+            align-items: center;
+            .b_header_right_logout {
+                width: 64px;
+                height: 100%;
+                font-size: 20px;
+                margin-left: 16px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid transparent;
+            }
+        }
+    }
+}
+
+.ant-menu-submenu-title {
+    .ant-menu-submenu-arrow::before, .ant-menu-submenu-arrow::after {
+        @include background_color("font_color_01");
+    }
+}
+.ant-menu-submenu-title:hover {
+    .ant-menu-submenu-arrow::before, .ant-menu-submenu-arrow::after {
+        background-color: $theme_color_02 !important;
+    }
+}
+.ant-menu-sub.ant-menu-inline {
+    @include background_color("slider_background_color_02");
+    @include font_color("font_color_01");
+}

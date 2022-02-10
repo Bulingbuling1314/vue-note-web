@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import '@/assets/style/index.scss'
 import '@/utils/permission.ts'
 import { setupAntdIcon } from '@/antd/Icons'
 

@@ -1,7 +1,7 @@
 <template>
     <template v-for="item in menuList" :key="item.path">
         <template v-if="item.children && item.children.length > 0">
-            <a-sub-menu :key="item.name">
+            <a-sub-menu :key="item.name" class="theme_sub_slider">
                 <template #icon>
                     <b-icon icon="MailOutlined"/>
                 </template>
@@ -11,6 +11,7 @@
         </template>
         <template v-else>
             <a-menu-item
+                class="theme_sub_slider"
                 :key="item.name"
                 @click="clickRouter(item)"
             >

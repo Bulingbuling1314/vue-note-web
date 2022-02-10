@@ -1,0 +1,39 @@
+@import "./mixin.scss";
+// 在需要变更主题的元素上添加对应class
+// 目前只有字体颜色和背景颜色，后边可能会有不同需求的颜色搭配，以后再做处理
+/*
+    theme_all   // 字体颜色、背景颜色都统一
+    theme_color // 字体颜色统一
+    theme_color // 背景颜色统一
+*/
+/*
+    通过js进行修改主题
+    提示：为了防止刷新复原问题，可使用缓存进行解决
+    window.document.documentElement.setAttribute('data-ming', "theme1");
+*/
+// 侧边栏和顶部
+.theme_slider_01 {
+    @include font_color("font_color_01");
+    @include background_color("slider_background_color_01");
+    @include border_color("slider_background_color_01");
+}
+.theme_slider_02 {
+    @include font_color("slider_background_color_01");
+    @include background_color("font_color_01");
+}
+
+.theme_all_01 {
+    @include font_color("font_color_01");
+    @include background_color("background_color_01");
+}
+.theme_all_02 {
+    @include font_color("font_color_01");
+    @include background_color("background_color_02");
+}
+
+.theme_color_01 {
+    @include font_color("font_color_01");
+}
+.theme_bg_01 {
+    @include background_color("background_color_01");
+}

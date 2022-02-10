@@ -1,0 +1,58 @@
+// 公共颜色
+$theme_color_01: #00C9FF;
+$theme_color_02: #1890ff;
+$theme_color_03: #0C6CE0;
+$theme_color_04: #5C73FA;
+$theme_color_05: #9B63F0;
+$theme_color_06: #FFAB4B;
+$theme_color_07: #E93840;
+$theme_color_08: #04B7A2;
+$themes: (
+  // 默认
+  default: (
+    // 字体颜色
+    font_color_01: #FFF,
+    font_color_02: #EEE,
+    // 背景颜色
+    background_color_01: #001529,
+    background_color_02: #122344,
+  
+    // 侧边栏颜色
+    slider_background_color_01: #001529,
+    slider_background_color_02: #181F3A,
+    // 侧边栏边框颜色
+    slider_border_color_01: #001529,
+  ),
+  // 暗色
+  dark: (
+    // 字体颜色
+    font_color_01: #FFF,
+    font_color_02: #EEE,
+    // 背景颜色
+    background_color_01: #122344,
+    background_color_02: #001529,
+
+
+    // 侧边栏背景颜色
+    slider_background_color_01: #122344,
+    slider_background_color_02: #181F3A,
+    // 侧边栏边框颜色
+    slider_border_color_01: #122344,
+  ),
+  // 亮色
+  white: (
+    // 字体颜色
+    font_color_01: #222,
+    font_color_02: #666,
+    // 背景颜色
+    background_color_01: #F1F4F5,
+    background_color_02: #FFF,
+
+
+    // 侧边栏颜色
+    slider_background_color_01: #F1F4F5,
+    slider_background_color_02: #EEEEEE,
+    // 侧边栏边框颜色
+    slider_border_color_01: #001529,
+  )
+);

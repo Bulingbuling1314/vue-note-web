@@ -4,7 +4,7 @@
         "path": "home",
         "component": "home",
         "meta": {
-            "icon": "home",
+            "icon": "HomeOutlined",
             "name": "首页"
         }
     },
@@ -13,7 +13,7 @@
         "path": "test1",
         "component": "test1",
         "meta": {
-            "icon": "home",
+            "icon": "FlagOutlined",
             "name": "测试1"
         }
     },
@@ -22,7 +22,7 @@
         "path": "test2",
         "component": "test2",
         "meta": {
-            "icon": "home",
+            "icon": "FireOutlined",
             "name": "测试2"
         }
     },
@@ -31,7 +31,7 @@
         "path": "charts",
         "component": "",
         "meta": {
-            "icon": "home",
+            "icon": "FundOutlined",
             "name": "图表"
         },
         "children": [
@@ -40,7 +40,7 @@
                 "path": "bar",
                 "component": "charts/bar",
                 "meta": {
-                    "icon": "home",
+                    "icon": "BarChartOutlined",
                     "name": "柱状图"
                 }
             },
@@ -49,7 +49,7 @@
                 "path": "line",
                 "component": "charts/line",
                 "meta": {
-                    "icon": "home",
+                    "icon": "LineChartOutlined",
                     "name": "折线图"
                 }
             }

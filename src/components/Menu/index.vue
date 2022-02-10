@@ -3,7 +3,7 @@
         <template v-if="item.children && item.children.length > 0">
             <a-sub-menu :key="item.name" class="theme_sub_slider">
                 <template #icon>
-                    <b-icon icon="MailOutlined"/>
+                    <b-icon :icon="item.meta.icon"/>
                 </template>
                 <template #title>{{ item.meta.name }}</template>
                 <b-sub-menu :menuList="item.children"></b-sub-menu>
@@ -15,7 +15,7 @@
                 :key="item.name"
                 @click="clickRouter(item)"
             >
-                <b-icon icon="UserOutlined" />
+                <b-icon :icon="item.meta.icon" />
                 <span>{{ item.meta.name }}</span>
             </a-menu-item>
         </template>

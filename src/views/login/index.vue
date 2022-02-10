@@ -155,7 +155,7 @@ export default defineComponent({
         background-color: rgba(0, 0, 0, 0.1);
         .login_btn {
             margin: 30px 0 0;
-            /deep/ .ant-form-item-control-input-content {
+            :deep(.ant-form-item-control-input-content) {
                 .ant-btn {
                     width: 100%;
                 }

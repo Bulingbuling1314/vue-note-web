@@ -5,7 +5,7 @@
             :trigger="null"
             collapsible
         >
-            <div class="logo" />
+            <div class="logo"></div>
             <a-menu
                 theme="dark"
                 mode="inline"
@@ -94,8 +94,9 @@ export default defineComponent({
     height: 100%;
     .logo {
         height: 40px;
-        background-color: #fefefe;
         margin: 12px 20px 36px;
+        background: url('~@/assets/logo.png');
+        background-size: 100% 100%;
     }
     .b_header {
         background-color: #fff;

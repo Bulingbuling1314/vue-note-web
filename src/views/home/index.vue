@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-      首页
+      <img width="500" src="@/assets/logo02.png" alt="">
+      <h1>一个简洁的后台结构</h1>
+      <span>Vue3.0 + Ts + Antd + axios</span>
+      <div class="github">
+          <a href="https://github.com/Bulingbuling1314/vue-note-web">点我去获取源码</a>
+      </div>
   </div>
 </template>
 
@@ -8,3 +13,15 @@
 import { defineComponent } from 'vue';
 export default defineComponent({})
 </script>
+
+<style lang="scss" scoped>
+.home {
+    text-align: center;
+    h1 {
+        font-size: 32px;
+    }
+    .github {
+        margin-top: 20px;
+    }
+}
+</style>

@@ -14,13 +14,9 @@
                         <a-input v-model:value="form.password" />
                     </a-form-item>
 
-                    <a-form-item :wrapper-col="{ span: 14, offset: 6 }">
-                        <a-button type="primary" @click="onSubmit"
-                            >Lgoin</a-button
-                        >
-                        <a-button style="margin-left: 24px" @click="resetForm"
-                            >Reset</a-button
-                        >
+                    <a-form-item class="login_btn">
+                        <a-button type="primary" @click="onSubmit">Lgoin</a-button>
+                        <!-- <a-button style="margin-left: 24px" @click="resetForm">Reset</a-button> -->
                     </a-form-item>
                 </a-form>
             </div>
@@ -153,8 +149,18 @@ export default defineComponent({
     }
 
     .b_form {
-        width: 300px;
+        max-width: 380px;
         margin: 0 auto;
+        padding: 42px 24px 24px;
+        background-color: rgba(0, 0, 0, 0.1);
+        .login_btn {
+            margin: 30px 0 0;
+            /deep/ .ant-form-item-control-input-content {
+                .ant-btn {
+                    width: 100%;
+                }
+            }
+        }
     }
 }
 .video-container {
@@ -171,10 +177,10 @@ export default defineComponent({
         width: 100%;
     }
     .filter {
-        padding: 110px 0 144px;
         z-index: 1;
         position: absolute;
         background: rgba(0, 0, 0, 0);
+        top: 20%;
         left: 50%;
         transform: translateX(-50%);
     }

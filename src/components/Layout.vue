@@ -36,6 +36,20 @@
                         <b-icon v-show="!isFullscreen" icon="FullscreenOutlined" @click="full" />
                         <b-icon v-show="isFullscreen" icon="FullscreenExitOutlined" @click="full" />
                     </div>
+                    <div @click="changeLanguage">{{ languageName === 0 ? '简体中文' : 'English' }}</div>
+                    <div class="b_header_right_user">
+                        <a-dropdown :trigger="['click']">
+                            <a class="ant-dropdown-link" @click.prevent>
+                                {{ store.state.user.userInfo.userName }}
+                                <b-icon icon="DownOutlined" />
+                            </a>
+                            <template #overlay>
+                                <a-menu>
+                                    <a-menu-item key="0">{{ $t('NavTop.userName') }}</a-menu-item>
+                                </a-menu>
+                            </template>
+                        </a-dropdown>
+                    </div>
                     <div class="b_header_right_logout theme_slider_01" @click="logout">
                         <b-icon icon="ApiOutlined" />
                     </div>
@@ -56,7 +70,7 @@
     </a-layout>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import BMenu from "@/components/Menu/index.vue";
@@ -68,6 +82,15 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const router = useRouter();
+
+        // @ts-ignore //忽略提示
+        const { proxy } = getCurrentInstance();
+        let languageName = ref(0)
+
+        const changeLanguage = () => {
+            languageName.value = languageName.value === 0 ? 1 : 0
+            proxy.$i18n.locale= languageName.value === 0 ? "zh-CN" : "en-US"
+        }
         const isFullscreen = ref(false)
         let full = () => {
             isFullscreen.value = !isFullscreen.value
@@ -76,15 +99,19 @@ export default defineComponent({
         const logout = () => {
             store.dispatch('Logout')
         }
+        console.log(store.state.user)
         return {
             selectedKeys: ref<string[]>([store.getters.currentMenu]),
             collapsed: ref<boolean>(false),
             route: useRoute(),
             router,
+            store,
             sliderList: store.getters.userMenu,
             full,
             isFullscreen,
-            logout
+            logout,
+            languageName,
+            changeLanguage
         };
     }
 });

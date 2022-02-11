@@ -27,6 +27,15 @@
         }
     },
     {
+        "name": "LANGUAGE",
+        "path": "language",
+        "component": "language",
+        "meta": {
+            "icon": "FontColorsOutlined",
+            "name": "国际化"
+        }
+    },
+    {
         "name": "CHART",
         "path": "charts",
         "component": "",

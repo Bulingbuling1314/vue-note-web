@@ -6,7 +6,7 @@ import RouterView from '@/components/RouterView/index.vue'
  * @params {Array<Object>} menuList
  * @type {RouteRecordRaw}
  * @return {Array<Object>}
-*/  
+*/
 // interface IRouter {
 //     path: string
 //     name: string
@@ -16,19 +16,25 @@ import RouterView from '@/components/RouterView/index.vue'
 //     redirect: string
 // }
 const loadView = (view: string) => { // 路由懒加载
-    return () => import(`@/views/${view}/index.vue`)
+    // 判断当前路径下是否有该文件
+    const files = require.context('@/views', true).keys()
+    if(files.find(file => file.includes(view + '/index.vue'))) {
+        return () => import(`@/views/${view}/index.vue`);
+    } else {
+        return () => import(`@/views/404/index.vue`);
+    }
 };
 
 const formatDynamicRouting = (routerMap: any) => {
     let dynamicRouting = routerMap
-    for(let item of dynamicRouting) {
+    for (let item of dynamicRouting) {
         item.name = item.name.toLocaleUpperCase()
-        if(item.children) {
+        if (item.children) {
             item.component = RouterView;
         } else {
             item.component = loadView(item.component)
         }
-        if(item.children && item.children.length > 0) {
+        if (item.children && item.children.length > 0) {
             formatDynamicRouting(item.children)
         } else {
             delete item['children']
@@ -101,14 +107,14 @@ const timeFix = () => {
     const time = new Date()
     const hour = time.getHours()
     return hour < 9 ? '早上好' : hour <= 11 ? '上午好' : hour <= 13 ? '中午好' : hour < 20 ? '下午好' : '晚上好'
-  }
-  // 判断IE
+}
+// 判断IE
 const isIE = () => {
     const bw = window.navigator.userAgent
     const compare = (s: string) => bw.indexOf(s) >= 0
     const ie11 = (() => 'ActiveXObject' in window)()
     return compare('MSIE') || ie11
-  }
+}
 
 
 export {

@@ -1,0 +1,5 @@
+@import "../theme/";
+
+.ant-result-title, .ant-result-subtitle {
+    @include font_color("font_color_01");
+}

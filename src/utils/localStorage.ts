@@ -1,20 +1,23 @@
-const SET_TOKEN = (token: string): void => {
+export const SET_TOKEN = (token: string): void => {
     localStorage.setItem("Token", token);
 }
 
-const GET_TOKEN = () => {
+export const GET_TOKEN = (): string | null => {
     return localStorage.getItem("Token");
 }
 
-const REMOVE_TOKEN = () => {
+export const REMOVE_TOKEN = () => {
     localStorage.removeItem("Token");
 }
 
+export const SET_USER_INFO = (user: string): void => {
+    localStorage.setItem("user", user);
+}
 
+export const GET_USER_INFO = (): string | null => {
+    return localStorage.getItem("user");
+}
 
-
-export {
-    SET_TOKEN,
-    GET_TOKEN,
-    REMOVE_TOKEN
+export const REMOVE_USER_INFO = () => {
+    localStorage.removeItem("user");
 }

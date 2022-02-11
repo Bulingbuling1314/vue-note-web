@@ -2,7 +2,7 @@ import { user as userInfo, menu } from '@/assets/mock/index'
 import router from '@/router'
 import { formatDynamicRouting, setDefaultRoute, clone } from '@/utils/util'
 import Layout from "@/components/Layout.vue"
-import { SET_TOKEN, REMOVE_TOKEN } from "@/utils/localStorage"
+import { SET_TOKEN, REMOVE_TOKEN, SET_USER_INFO, GET_USER_INFO } from "@/utils/localStorage"
 
 const user = {
     state: {
@@ -31,6 +31,7 @@ const user = {
                     commit("SET_USER_MENU", null);
                     commit('SET_USER_INFO', user)
                     SET_TOKEN(user.token)
+                    SET_USER_INFO(JSON.stringify(user))
                     resolve(user)
                 } else {
                     reject('error!')
@@ -49,8 +50,8 @@ const user = {
                 children: [...routes]
             }
             commit('SET_USER_MENU', routes)
+            commit('SET_USER_INFO', JSON.parse(GET_USER_INFO() || "{}"))
             setDefaultRoute([userMenu])
-            console.log(userMenu)
             router.addRoute(userMenu);
         },
 

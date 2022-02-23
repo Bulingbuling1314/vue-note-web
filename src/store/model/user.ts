@@ -1,8 +1,10 @@
-import { user as userInfo, menu } from '@/assets/mock/index'
+// import { user as userInfo, menu } from '@/assets/mock/index'
 import router from '@/router'
 import { formatDynamicRouting, setDefaultRoute, clone } from '@/utils/util'
 import Layout from "@/components/Layout.vue"
-import { SET_TOKEN, REMOVE_TOKEN, SET_USER_INFO, GET_USER_INFO } from "@/utils/localStorage"
+import { SET_TOKEN, REMOVE_TOKEN, SET_USER_INFO, GET_USER_INFO, REMOVE_USER_INFO, SET_MENU, GET_MENU, REMOVE_MENU } from "@/utils/localStorage"
+import { login } from "@/api/user";
+import { getMenu } from "@/api/menu";
 
 const user = {
     state: {
@@ -22,24 +24,49 @@ const user = {
         }
     },
     actions: {
-        Login({ state, commit }: any, form: {userName: string, password: string}) {
+        Login({ state, commit }: any, form: { userName: string, password: string }) {
             return new Promise((resolve, reject) => {
-                const user = userInfo.find((item: { userName: string; password: string }) => {
-                    return form.userName === item.userName && form.password === item.password
+                login(form).then(res => {
+                    if (res.data) {
+                        commit("SET_USER_MENU", null);
+                        commit('SET_USER_INFO', res.data)
+                        SET_TOKEN(res.data.token)
+                        SET_USER_INFO(JSON.stringify(res.data))
+                        resolve(res.data)
+                    } else {
+                        reject('error!')
+                    }
                 })
-                if(user) {
-                    commit("SET_USER_MENU", null);
-                    commit('SET_USER_INFO', user)
-                    SET_TOKEN(user.token)
-                    SET_USER_INFO(JSON.stringify(user))
-                    resolve(user)
-                } else {
-                    reject('error!')
-                }
             })
         },
-        SetMenu({ state, commit }: any) {
-            const myMenu = clone(menu)
+        async SetMenu({ state, commit, dispatch }: any) {
+            let myMenu: Array<any>;
+            if (GET_MENU()) {
+                myMenu = clone(JSON.parse(GET_MENU() || '[]'))
+                dispatch('SetRouter', myMenu)
+            } else {
+                await getMenu().then(res => {
+                    console.log(res)
+                    myMenu = clone(res.data)
+                    if (myMenu.length === 0) {
+                        myMenu.push({
+                            "name": "HOME",
+                            "path": "home",
+                            "component": "home",
+                            "meta": {
+                                "icon": "HomeOutlined",
+                                "name": "首页"
+                            }
+                        })
+                    }
+                    SET_MENU(JSON.stringify(myMenu))
+                    dispatch('SetRouter', myMenu)
+                })
+            }
+        },
+
+        // 设置路由
+        SetRouter({ state, commit, getters }: any, myMenu: any) {
             //处理需要动态的路由
             let routes: Array<any> = formatDynamicRouting(myMenu);
             const userMenu = {
@@ -61,6 +88,8 @@ const user = {
             commit('SET_USER_MENU', null)
             commit('SET_CURRENT_MENU', null)
             REMOVE_TOKEN()
+            REMOVE_MENU()
+            REMOVE_USER_INFO()
             router.replace({ path: "/login" });
         }
     }

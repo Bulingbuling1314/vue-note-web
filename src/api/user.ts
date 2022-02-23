@@ -1,5 +1,18 @@
 import service from "@/utils/request"
-import { IGetUserInfo } from "./@types/IUser";
+import { IGetUserInfo, IResponse } from "./@types/IUser";
+
+/**
+ * @description: 获取所有用户
+ * @params {} params
+ * @return {Promise}
+ */
+export const getAllUser = (): Promise<any> => {
+    return service({
+        url: "/api/bb/web/user/get",
+        method: "GET"
+    });
+};
+
 
 /**
  * @description: 用户登录
@@ -7,10 +20,11 @@ import { IGetUserInfo } from "./@types/IUser";
  * @return {Promise}
  */
 
-// export const getUserInfo = (params: IGetUserInfo) => {
-//   return service({
-//     url: "/public/mock/user.json",
-//     method: "GET",
-//     params,
-//   });
-// };
+export const login = (data: IGetUserInfo): Promise<any> => {
+    return service({
+        url: "/api/bb/web/user/login",
+        method: "POST",
+        data,
+    });
+};
+

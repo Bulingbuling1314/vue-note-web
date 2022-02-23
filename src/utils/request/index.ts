@@ -36,10 +36,15 @@ service.interceptors.response.use(
         // }
 
         if (response.status === 200) {
-            return response;
+            if (response.data.code === 200) {
+                return Promise.resolve(response.data);
+            } else {
+                message.warning(response.data.msg);
+                return Promise.reject(response.data);
+            }
         } else {
             message.warning(showMessage(response.status));
-            return response;
+            Promise.reject(response);
         }
     },
     // 请求失败

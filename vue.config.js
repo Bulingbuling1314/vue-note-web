@@ -1,6 +1,6 @@
 const path = require("path");   //引入path模块
 
-function resolve(dir){
+function resolve(dir) {
     return path.join(__dirname, dir)    //path.join(__dirname)设置绝对路径
 }
 
@@ -8,23 +8,29 @@ module.exports = {
     publicPath: "./",
     assetsDir: "static",
     productionSourceMap: false,
-    chainWebpack: config =>{
+    chainWebpack: config => {
         config.plugin('html')
-        .tap(args => {
-            args[0].title = "Bulingbuling";
-            return args;
-        })
+            .tap(args => {
+                args[0].title = "Bulingbuling";
+                return args;
+            })
         config.resolve.alias
-       .set('@',resolve('./src'))
+            .set('@', resolve('./src'))
     },
     devServer: {
+        disableHostCheck: false,
+        host: "0.0.0.0",
         port: 8100,
-        // proxy: {
-        //     "/api": {
-        //         target: "http://localhost:8089/",
-        //         ws: false,
-        //         changeOrigin: true
-        //     },
-        // }
+        proxy: {
+            "/api": {
+                // target: "http://localhost:8098",
+                target: "http://www.web.liubingbing.xyz:8098",
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    "^/api": "",
+                },
+            },
+        }
     }
- }
+}

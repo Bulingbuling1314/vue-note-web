@@ -21,3 +21,16 @@ export const GET_USER_INFO = (): string | null => {
 export const REMOVE_USER_INFO = () => {
     localStorage.removeItem("user");
 }
+
+/** 储存路由 */
+export const SET_MENU = (menu: string): void => {
+    localStorage.setItem("menu", menu);
+}
+
+export const GET_MENU = (): string | null => {
+    return localStorage.getItem("menu");
+}
+
+export const REMOVE_MENU = () => {
+    localStorage.removeItem("menu");
+}

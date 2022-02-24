@@ -8,7 +8,7 @@ import { IGetUserInfo, IResponse } from "./@types/IUser";
  */
 export const getAllUser = (): Promise<any> => {
     return service({
-        url: "/api/bb/web/user/get",
+        url: "/bb/web/user/get",
         method: "GET"
     });
 };
@@ -22,7 +22,7 @@ export const getAllUser = (): Promise<any> => {
 
 export const login = (data: IGetUserInfo): Promise<any> => {
     return service({
-        url: "/api/bb/web/user/login",
+        url: "/bb/web/user/login",
         method: "POST",
         data,
     });

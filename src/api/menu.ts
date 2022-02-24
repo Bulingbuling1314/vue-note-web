@@ -8,7 +8,7 @@ import { IGetUserInfo } from "./@types/IUser";
  */
 export const getMenu = (): Promise<any> => {
     return service({
-        url: "/api/bb/web/menu/get",
+        url: "/bb/web/menu/get",
         method: "GET"
     });
 };

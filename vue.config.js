@@ -22,13 +22,13 @@ module.exports = {
         host: "0.0.0.0",
         port: 8100,
         proxy: {
-            "/api": {
+            "/bb": {
                 // target: "http://localhost:8098",
-                target: "http://www.web.liubingbing.xyz:8098",
+                target: "http://www.web.liubingbing.xyz:8098/bb",
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
-                    "^/api": "",
+                    "^/bb": "",
                 },
             },
         }

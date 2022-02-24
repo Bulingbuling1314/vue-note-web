@@ -59,6 +59,11 @@ const user = {
                             }
                         })
                     }
+                    for (let i of myMenu) {
+                        if (typeof i.meta === 'string') {
+                            i.meta = JSON.parse(i.meta)
+                        }
+                    }
                     SET_MENU(JSON.stringify(myMenu))
                     dispatch('SetRouter', myMenu)
                 })

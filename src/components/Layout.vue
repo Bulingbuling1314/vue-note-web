@@ -123,10 +123,11 @@ export default defineComponent({
       console.log(store);
       notification.open({
         message:
-          `Small Boby ${store.getters.userInfo.nickName}，` + timeFix() + " !",
+          `Small Baby ${store.getters.userInfo.nickName}，` + timeFix() + " !",
         description: `您的账号截至目前已经登陆过本网站${
           store.getters.userInfo.loginCount || 0
         }次`,
+        top: "60px",
         icon: createVNode(SmileOutlined, { style: "color: #108ee9" }),
         duration: null,
       });

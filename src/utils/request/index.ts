@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showMessage } from './status'
 import { message } from 'ant-design-vue';
+import { GET_TOKEN } from '@/utils/localStorage';
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL, // url = base url + request url
@@ -17,7 +18,9 @@ const service = axios.create({
 service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         // 在此处添加请求头等，如添加 token
-        // config.headers['Authorization'] = 'tokentokentokentokentokentokenhhh'
+        config.headers = {
+            Authorization: GET_TOKEN() || ""
+        }
         return config;
     },
     (error: any) => {

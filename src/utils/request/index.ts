@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showMessage } from './status'
 import { message } from 'ant-design-vue';
 import { GET_TOKEN } from '@/utils/localStorage';
+import router from '@/router';
+import store from '@/store';
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL, // url = base url + request url
@@ -30,17 +32,12 @@ service.interceptors.request.use(
 // axios实例拦截响应
 service.interceptors.response.use(
     (response: AxiosResponse) => {
-        // if (response.headers.authorization) {
-        //     localStorage.setItem('app_token', response.headers.authorization);
-        // } else {
-        //     if (response.data && response.data.token) {
-        //         localStorage.setItem('app_token', response.data.token);
-        //     }
-        // }
-
         if (response.status === 200) {
             if (response.data.code === 200) {
                 return Promise.resolve(response.data);
+            } else if (response.data.code === 401) {
+                message.warning(showMessage(response.data.code));
+                return store.dispatch('Logout')
             } else {
                 message.warning(response.data.msg);
                 return Promise.reject(response.data);

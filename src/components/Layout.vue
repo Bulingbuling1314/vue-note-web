@@ -124,7 +124,7 @@ export default defineComponent({
       notification.open({
         message:
           `Small Baby ${store.getters.userInfo.nickName}，` + timeFix() + " !",
-        description: `您的账号截至目前已经登陆过本网站${
+        description: `该账号截至目前已经登陆过本网站${
           store.getters.userInfo.loginCount || 0
         }次`,
         top: "60px",

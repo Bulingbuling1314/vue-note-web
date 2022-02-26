@@ -19,7 +19,6 @@ router.beforeEach((to, from, next) => {
   if (GET_TOKEN() && to.path === "/login") {
     return next('/');
   }
-  console.log(store.getters.userMenu)
   if (!store.getters.userMenu && to.path !== "/login") {
     return store.dispatch("SetMenu").then(() => {
       next({ ...to, replace: true });

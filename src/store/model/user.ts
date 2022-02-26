@@ -46,7 +46,6 @@ const user = {
                 dispatch('SetRouter', myMenu)
             } else {
                 await getMenu().then(res => {
-                    console.log(res)
                     myMenu = clone(res.data)
                     if (myMenu.length === 0) {
                         myMenu.push({

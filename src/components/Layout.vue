@@ -101,7 +101,6 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-
     // @ts-ignore //忽略提示
     const { proxy } = getCurrentInstance();
     let languageName = ref(0);

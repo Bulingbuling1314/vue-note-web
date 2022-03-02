@@ -10,8 +10,13 @@
 </template>
 
 <script lang="ts">
+import router from '@/router';
 import { defineComponent } from 'vue';
-export default defineComponent({})
+export default defineComponent({
+    setup() {
+        console.log(router)
+    }
+})
 </script>
 
 <style lang="scss" scoped>

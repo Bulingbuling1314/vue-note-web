@@ -1,5 +1,5 @@
 <template>
-  bar
+  row bar
 </template>
 
 <script>

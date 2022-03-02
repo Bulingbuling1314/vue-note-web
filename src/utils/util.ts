@@ -32,7 +32,7 @@ const formatDynamicRouting = (routerMap: any) => {
             item.meta = JSON.parse(item.meta)
         }
         item.name = item.name.toLocaleUpperCase()
-        if (item.children) {
+        if (item.children && item.children.length > 0) {
             item.component = RouterView;
         } else {
             item.component = loadView(item.component)

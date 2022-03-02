@@ -28,6 +28,9 @@ const loadView = (view: string) => { // 路由懒加载
 const formatDynamicRouting = (routerMap: any) => {
     let dynamicRouting = routerMap
     for (let item of dynamicRouting) {
+        if (typeof item.meta === 'string') {
+            item.meta = JSON.parse(item.meta)
+        }
         item.name = item.name.toLocaleUpperCase()
         if (item.children) {
             item.component = RouterView;

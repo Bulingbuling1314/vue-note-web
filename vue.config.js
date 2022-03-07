@@ -23,8 +23,8 @@ module.exports = {
         port: 8100,
         proxy: {
             "/bb": {
-                target: "http://localhost:8098/bb",
-                // target: "http://www.web.liubingbing.xyz:8098/bb",
+                // target: "http://localhost:8098/bb",
+                target: "http://www.web.liubingbing.xyz:8098/bb",
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {

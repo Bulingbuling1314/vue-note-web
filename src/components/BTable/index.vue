@@ -1,0 +1,62 @@
+<template>
+  <!-- 表格组件 -->
+  <a-table
+    :url="url"
+    :dataSource="result.dataSource"
+    :columns="columns"
+    :pagination="false"
+    :row-selection="isSelect ? rowSelection : null"
+    rowKey="id"
+  >
+    <template #[item]="scope" v-for="item in Object.keys($slots)" :key="item">
+      <slot :name="item" :scope="scope"></slot>
+    </template>
+  </a-table>
+</template>
+ 
+<script lang="ts" setup>
+import { reactive, useSlots } from "vue";
+import { useStore } from "vuex";
+import service from "@/utils/request";
+
+const result = reactive({
+  dataSource: [],
+});
+const props = defineProps({
+  dataSource: Object,
+  columns: Object,
+  isSelect: Boolean,
+  url: Object,
+});
+
+const store = useStore();
+
+// 插槽的实例
+const slots = useSlots();
+
+// 渲染的数据
+const renderArr = Object.keys(slots);
+
+console.log(renderArr);
+
+const emits = defineEmits(["batch"]);
+
+// 是否多选
+const rowSelection = {
+  onChange: (selectedRowKeys: any, selectedRows: any) => {
+    console.log(selectedRowKeys, selectedRows);
+    emits("batch", selectedRowKeys);
+  },
+  getCheckboxProps: (record: any) => ({
+    disabled: record.name === "Disabled User", // Column configuration not to be checked
+    name: record.name,
+  }),
+};
+result.dataSource = store.getters.userMenu;
+service({
+  url: props.url?.list,
+  method: "GET",
+}).then((res) => {
+  console.log(res);
+});
+</script>

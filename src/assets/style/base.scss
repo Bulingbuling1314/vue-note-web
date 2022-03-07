@@ -54,3 +54,19 @@ a:visited,
 a:link {
   text-decoration: none;
 }
+.b_flex {
+  display: flex;
+  align-items: center;
+}
+.b_justify_around {
+  justify-content: space-around;
+}
+.b_justify_between {
+  justify-content: space-between;
+}
+.b_btn_group {
+  display: flex;
+  .ant-btn {
+    margin-left: 8px;
+  }
+}

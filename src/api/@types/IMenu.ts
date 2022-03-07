@@ -6,8 +6,14 @@ export interface IMenuItem {
     "name": string,
     /** 菜单路径 */
     "path": string,
+    /** 菜单权限 */
+    "role": string,
+    /** 菜单类型 */
+    "type": string,
     /** 组件名 */
-    "component": string,
+    "component": Object,
+    /** 组件名 */
+    "parentId": number,
     /** other */
     "meta": string,
     /** 子菜单 */

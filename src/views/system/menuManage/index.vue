@@ -18,7 +18,7 @@
     </div>
   </a-card>
   <a-card title="Menu List" :bordered="false">
-    <b-table :columns="columns" :dataSource="data" :url="url">
+    <b-table :columns="columns" :dataSource="data" :list="list">
       <template #action="record">
         <div class="editable-row-operations">
           <span>
@@ -30,7 +30,7 @@
       </template>
     </b-table>
   </a-card>
-  <add :form="form.add" v-model:visible="show.add" />
+  <add :form="form.add" v-model:visible="show.add" v-if="show.add" />
 </template>
 <script lang="ts">
 import tableMixins from "@/mixins/tableMixins";
@@ -90,8 +90,9 @@ export default {
           slots: { customRender: "action" },
         },
       ],
-      url: {
-        list: "/bb/web/menu/get",
+      list: {
+        url: "/bb/web/menu/get",
+        method: "GET",
       },
       edit,
       del,

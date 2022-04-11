@@ -1,34 +1,36 @@
 <template>
-  <div class="line">
-    <h2>Line</h2>
+  <div class="column_bar">
+    <h2>Column Bar</h2>
     <div class="chart_item">
-      <div ref="lineRef" style="width: 100%; height: 100%"></div>
+      <div ref="barXRef" style="width: 100%; height: 100%"></div>
     </div>
   </div>
 </template>
 
 <script>
 import { onMounted, ref } from "vue";
-import { Line } from "@/components/Charts/index";
+import { BarX } from "@/components/Charts/index";
 export default {
   setup() {
-    const lineRef = ref(null);
+    const barXRef = ref(null);
 
     onMounted(() => {
-      new Line(lineRef.value, {});
+      new BarX(barXRef.value, {});
     });
 
     return {
-      lineRef,
+      barXRef,
     };
   },
 };
 </script>
 
 <style lang="sass" scoped>
-.line
+.column_bar
   width: 100%
   height: 100%
+  h2
+    @include font_color("font_color_01")
   .chart_item
     width: 100%
     height: 400px

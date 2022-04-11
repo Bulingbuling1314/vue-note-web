@@ -117,9 +117,9 @@ export default defineComponent({
     const logout = () => {
       store.dispatch("Logout");
     };
-    console.log(store.state.user);
+    // console.log(store.state.user);
     onMounted(() => {
-      console.log(store);
+      // console.log(store);
       notification.open({
         message:
           `Small Baby ${store.getters.userInfo.nickName}，` + timeFix() + " !",

@@ -8,6 +8,13 @@ module.exports = {
     publicPath: "./",
     assetsDir: "static",
     productionSourceMap: false,
+    css: {
+        loaderOptions: {
+            sass: {
+                prependData: `@import "@/assets/style/theme/index.scss";`
+            }
+        }
+    },
     chainWebpack: config => {
         config.plugin('html')
             .tap(args => {

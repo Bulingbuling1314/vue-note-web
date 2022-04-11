@@ -1,7 +1,7 @@
 <template>
   <!-- 表格组件 -->
   <a-table
-    :url="url"
+    :list="list"
     :dataSource="result.dataSource"
     :columns="columns"
     :pagination="false"
@@ -19,14 +19,14 @@ import { reactive, useSlots } from "vue";
 import { useStore } from "vuex";
 import service from "@/utils/request";
 
-const result = reactive({
-  dataSource: [],
-});
 const props = defineProps({
-  dataSource: Object,
   columns: Object,
   isSelect: Boolean,
-  url: Object,
+  list: Object,
+});
+
+const result = reactive({
+  dataSource: [],
 });
 
 const store = useStore();
@@ -54,9 +54,19 @@ const rowSelection = {
 };
 result.dataSource = store.getters.userMenu;
 service({
-  url: props.url?.list,
-  method: "GET",
+  url: props.list?.url,
+  method: props.list?.method,
 }).then((res) => {
-  console.log(res);
+  result.dataSource = res.data.map((item: any) => {
+    if (item.children && item.children.length === 0) {
+      delete item.children;
+    }
+    if (item.meta) {
+      item.meta = JSON.parse(item.meta);
+    }
+    return {
+      ...item,
+    };
+  });
 });
 </script>

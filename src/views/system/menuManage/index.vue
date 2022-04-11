@@ -18,25 +18,34 @@
     </div>
   </a-card>
   <a-card title="Menu List" :bordered="false">
-    <b-table :columns="columns" :dataSource="data" :list="list">
+    <b-table ref="bTable" :columns="columns" :list="list">
       <template #action="record">
         <div class="editable-row-operations">
           <span>
             <a @click="edit(record.scope.text)">Edit</a>
             <a-divider type="vertical" />
-            <a @click="del(record.scope.text)">Delete</a>
+            <a-popconfirm
+              title="Are you sure delete this menu?"
+              ok-text="Yes"
+              cancel-text="No"
+              @confirm="del(record.scope.text)"
+            >
+              <a href="#">Delete</a>
+            </a-popconfirm>
           </span>
         </div>
       </template>
     </b-table>
   </a-card>
-  <add :form="form.add" v-model:visible="show.add" v-if="show.add" />
+  <add :form="form.add" v-model:visible="show.add" @ok="save" />
 </template>
 <script lang="ts">
 import tableMixins from "@/mixins/tableMixins";
 import { IMenuItem } from "@/api/@types/IMenu";
 import add from "./model/add.vue";
-import { reactive } from "@vue/reactivity";
+import { ref, reactive } from "@vue/reactivity";
+import { addMenu, removeMenu } from "@/api/menu"
+import { message } from 'ant-design-vue';
 
 export default {
   components: {
@@ -44,6 +53,7 @@ export default {
     add,
   },
   setup() {
+    const bTableRef = ref()
     const show = reactive({
       add: false,
     });
@@ -51,16 +61,50 @@ export default {
       add: {},
     });
 
+    const openAdd = () => {
+      form.add = {
+        id: 0,
+        name: '',
+        meta: {
+          name: '',
+          icon: ''
+        },
+        component: '',
+        parentId: 0,
+        path: "",
+        role: "",
+        type: "",
+      };
+      show.add = true;
+    }
+
     const edit = (item: IMenuItem) => {
       form.add = item;
       show.add = true;
     };
     const del = (item: IMenuItem) => {
-      console.log(item);
+      removeMenu({id: item.id}).then(res => {
+        message.success(res.data)
+        bTableRef.value.loadPage()
+      })
     };
+    
+
+
+    const save = (data: any) => {
+        show.add = false;
+        console.log(bTableRef.value)
+        bTableRef.value.loadPage()
+      // addMenu(data).then(_ => {
+      //   message.success('操作成功！')
+      //   show.add = false;
+      //   bTable.value.loadPage()
+      // })
+    }
     return {
       show,
       form,
+      bTableRef,
       columns: [
         {
           title: "路由名称",
@@ -73,7 +117,7 @@ export default {
         },
         {
           title: "路由组件名称",
-          dataIndex: "path",
+          dataIndex: "component",
         },
         {
           title: "路由类型",
@@ -96,7 +140,8 @@ export default {
       },
       edit,
       del,
-      openAdd: () => (show.add = true),
+      openAdd,
+      save
     };
   },
 };

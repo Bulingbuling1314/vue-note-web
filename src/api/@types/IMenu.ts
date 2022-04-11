@@ -2,6 +2,8 @@
  *  菜单
  * */
 export interface IMenuItem {
+    /** 菜单id */
+    "id": number,
     /** 菜单名称 */
     "name": string,
     /** 菜单路径 */

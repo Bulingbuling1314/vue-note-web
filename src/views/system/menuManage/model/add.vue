@@ -2,47 +2,40 @@
   <a-modal v-bind="$attrs" width="1000px" title="ADD MENU" @ok="handleOk">
     <a-form
       ref="formRef"
-      :model="formState"
+      :model="form"
       :rules="rules"
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
     >
-      <a-form-item ref="name" :label="$t('System.menuManage.name')" name="name">
-        <a-input v-model:value="form.name" />
+      <a-form-item :label="$t('System.menuManage.id')" name="id">
+        <a-input v-model:value="form.id" />
       </a-form-item>
-      <a-form-item :label="$t('System.menuManage.component')" name="region">
+      <a-form-item :label="$t('System.menuManage.name')" name="name">
+        <a-input v-model:value="form.meta.name" />
+      </a-form-item>
+      <a-form-item :label="$t('System.menuManage.component')" name="component">
+        <a-input v-model:value="form.component" />
+      </a-form-item>
+      <a-form-item :label="$t('System.menuManage.type')" name="type">
+        <a-input v-model:value="form.type" />
+      </a-form-item>
+      <a-form-item :label="$t('System.menuManage.parentName')" name="parentId">
         <a-select
-          v-model:value="formState.region"
-          placeholder="please select your zone"
+          v-model:value="form.parentId"
+          placeholder="please select parentName"
         >
-          <a-select-option value="shanghai">Zone one</a-select-option>
-          <a-select-option value="beijing">Zone two</a-select-option>
+          <a-select-option :value="0">无</a-select-option>
+          <a-select-option v-for="item in menuList" :key="item.id" :value="item.id">{{ item.meta.name }}</a-select-option>
         </a-select>
       </a-form-item>
-      <a-form-item :label="$t('System.menuManage.type')" required name="date1">
-        <a-date-picker
-          v-model:value="formState.date1"
-          show-time
-          type="date"
-          placeholder="Pick a date"
-          style="width: 100%"
-        />
+      <a-form-item :label="$t('System.menuManage.icon')" name="icon">
+        <a-input v-model:value="form.meta.icon" />
       </a-form-item>
-      <a-form-item :label="$t('System.menuManage.parentName')" name="delivery">
-        <a-switch v-model:checked="formState.delivery" />
+      <a-form-item :label="$t('System.menuManage.path')" name="path">
+        <a-input v-model:value="form.path" />
       </a-form-item>
-      <a-form-item :label="$t('System.menuManage.icon')" name="type">
-        <a-checkbox-group v-model:value="formState.type">
-          <a-checkbox value="1" name="type">Online</a-checkbox>
-          <a-checkbox value="2" name="type">Promotion</a-checkbox>
-          <a-checkbox value="3" name="type">Offline</a-checkbox>
-        </a-checkbox-group>
-      </a-form-item>
-      <a-form-item :label="$t('System.menuManage.path')" name="resource">
-        <a-radio-group v-model:value="formState.resource">
-          <a-radio value="1">Sponsor</a-radio>
-          <a-radio value="2">Venue</a-radio>
-        </a-radio-group>
+      <a-form-item :label="$t('System.menuManage.role')" name="role">
+        <a-input v-model:value="form.role" />
       </a-form-item>
       <!-- <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
         <a-button type="primary" @click="onSubmit">Create</a-button>
@@ -53,31 +46,26 @@
 </template>
 <script lang="ts">
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
-import { Moment } from "moment";
 import { defineComponent, reactive, ref, toRaw, UnwrapRef } from "vue";
+import { getMenu } from "@/api/menu"
 interface FormState {
+  id: number,
   name: string;
-  region: string | undefined;
-  date1: Moment | undefined;
-  delivery: boolean;
-  type: string[];
-  resource: string;
-  desc: string;
+  meta: {
+    name: string,
+    icon: string
+  };
+  component: string;
+  parentId: number;
+  path: string;
+  role: string;
+  type: string;
 }
 export default defineComponent({
   props: ["form"],
-  setup(props) {
-    console.log(props);
+  setup(props, { emit }) {
     const formRef = ref();
-    const formState: UnwrapRef<FormState> = reactive({
-      name: "",
-      region: undefined,
-      date1: undefined,
-      delivery: false,
-      type: [],
-      resource: "",
-      desc: "",
-    });
+    const menuList: Array<any> = reactive([])
     const rules = {
       name: [
         {
@@ -129,7 +117,7 @@ export default defineComponent({
       formRef.value
         .validate()
         .then(() => {
-          console.log("values", formState, toRaw(formState));
+          console.log("values", props.form, toRaw(props.form));
         })
         .catch((error: ValidateErrorEntity<FormState>) => {
           console.log("error", error);
@@ -138,16 +126,30 @@ export default defineComponent({
     const resetForm = () => {
       formRef.value.resetFields();
     };
+    getMenu().then(res => {
+      res.data.map((item: any) => {
+        menuList.push({...item, meta: JSON.parse(item.meta)});
+      })
+    })
+
+    const handleOk = () => {
+      const data = {
+        ...props.form,
+        name: props.form.path.toLocaleUpperCase(),
+        meta: JSON.stringify(props.form.meta)
+      }
+      emit('ok', data)
+    }
     return {
       formRef,
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       other: "",
-      formState,
       rules,
       onSubmit,
       resetForm,
-      handleOk: () => {},
+      handleOk,
+      menuList
     };
   },
 });

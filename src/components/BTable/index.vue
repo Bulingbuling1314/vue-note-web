@@ -16,7 +16,6 @@
  
 <script lang="ts" setup>
 import { reactive, useSlots } from "vue";
-import { useStore } from "vuex";
 import service from "@/utils/request";
 
 const props = defineProps({
@@ -28,8 +27,6 @@ const props = defineProps({
 const result = reactive({
   dataSource: [],
 });
-
-const store = useStore();
 
 // 插槽的实例
 const slots = useSlots();
@@ -52,8 +49,9 @@ const rowSelection = {
     name: record.name,
   }),
 };
-result.dataSource = store.getters.userMenu;
-service({
+
+const loadPage = () => {
+  service({
   url: props.list?.url,
   method: props.list?.method,
 }).then((res) => {
@@ -69,4 +67,6 @@ service({
     };
   });
 });
+}
+loadPage()
 </script>

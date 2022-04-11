@@ -13,12 +13,14 @@ const messages={
         },
         System: {
             menuManage: {
+                id: '序号',
                 path: '菜单PATH',
                 component: '菜单路径',
                 type: '菜单类型',
                 parentName: '上级菜单名称',
                 icon: '图标',
-                name: '菜单名称'
+                name: '菜单名称',
+                role: '菜单权限'
             }
         }
     },
@@ -36,12 +38,14 @@ const messages={
         },
         system: {
             menuManage: {
+                id: '序号',
                 path: '菜单PATH',
                 component: '菜单路径',
                 type: '类型',
                 parentName: '上级菜单名称',
                 icon: '图标',
-                name: '菜单名称'
+                name: '菜单名称',
+                role: '菜单权限'
             }
         }
     }

@@ -25,7 +25,12 @@
           placeholder="please select parentName"
         >
           <a-select-option :value="0">无</a-select-option>
-          <a-select-option v-for="item in menuList" :key="item.id" :value="item.id">{{ item.meta.name }}</a-select-option>
+          <a-select-option
+            v-for="item in menuList"
+            :key="item.id"
+            :value="item.id"
+            >{{ item.meta.name }}</a-select-option
+          >
         </a-select>
       </a-form-item>
       <a-form-item :label="$t('System.menuManage.icon')" name="icon">
@@ -45,90 +50,89 @@
   </a-modal>
 </template>
 <script lang="ts">
-import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
-import { defineComponent, reactive, ref, toRaw, UnwrapRef } from "vue";
-import { getMenu } from "@/api/menu"
+import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
+import { defineComponent, reactive, ref, toRaw, UnwrapRef } from 'vue'
+import { getMenu } from '@/api/menu'
 interface FormState {
-  id: number,
-  name: string;
+  id: number
+  name: string
   meta: {
-    name: string,
+    name: string
     icon: string
-  };
-  component: string;
-  parentId: number;
-  path: string;
-  role: string;
-  type: string;
+  }
+  component: string
+  parentId: number
+  path: string
+  role: string
+  type: string
 }
 export default defineComponent({
-  props: ["form"],
+  props: ['form'],
   setup(props, { emit }) {
-    const formRef = ref();
+    const formRef = ref()
     const menuList: Array<any> = reactive([])
     const rules = {
       name: [
         {
           required: true,
-          message: "Please input Activity name",
-          trigger: "blur",
+          message: 'Please input Activity name',
+          trigger: 'blur',
         },
-        { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" },
       ],
       region: [
         {
           required: true,
-          message: "Please select Activity zone",
-          trigger: "change",
+          message: 'Please input Activity zone',
+          trigger: 'blur',
         },
       ],
       date1: [
         {
           required: true,
-          message: "Please pick a date",
-          trigger: "change",
-          type: "object",
+          message: 'Please pick a date',
+          trigger: 'change',
+          type: 'object',
         },
       ],
       type: [
         {
-          type: "array",
+          type: 'array',
           required: true,
-          message: "Please select at least one activity type",
-          trigger: "change",
+          message: 'Please input at least one activity type',
+          trigger: 'blur',
         },
       ],
       resource: [
         {
           required: true,
-          message: "Please select activity resource",
-          trigger: "change",
+          message: 'Please select activity resource',
+          trigger: 'change',
         },
       ],
       desc: [
         {
           required: true,
-          message: "Please input activity form",
-          trigger: "blur",
+          message: 'Please input activity form',
+          trigger: 'blur',
         },
       ],
-    };
+    }
     const onSubmit = () => {
       formRef.value
         .validate()
         .then(() => {
-          console.log("values", props.form, toRaw(props.form));
+          console.log('values', props.form, toRaw(props.form))
         })
         .catch((error: ValidateErrorEntity<FormState>) => {
-          console.log("error", error);
-        });
-    };
+          console.log('error', error)
+        })
+    }
     const resetForm = () => {
-      formRef.value.resetFields();
-    };
-    getMenu().then(res => {
+      formRef.value.resetFields()
+    }
+    getMenu().then((res) => {
       res.data.map((item: any) => {
-        menuList.push({...item, meta: JSON.parse(item.meta)});
+        menuList.push({ ...item, meta: JSON.parse(item.meta) })
       })
     })
 
@@ -136,22 +140,22 @@ export default defineComponent({
       const data = {
         ...props.form,
         name: props.form.path.toLocaleUpperCase(),
-        meta: JSON.stringify(props.form.meta)
+        meta: JSON.stringify(props.form.meta),
       }
-      emit('ok', data)
+      emit('save', data)
     }
     return {
       formRef,
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
-      other: "",
+      other: '',
       rules,
       onSubmit,
       resetForm,
       handleOk,
-      menuList
-    };
+      menuList,
+    }
   },
-});
+})
 </script>
 

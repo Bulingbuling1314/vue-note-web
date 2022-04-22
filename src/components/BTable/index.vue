@@ -15,58 +15,64 @@
 </template>
  
 <script lang="ts" setup>
-import { reactive, useSlots } from "vue";
-import service from "@/utils/request";
+import { reactive, useSlots } from 'vue'
+import service from '@/utils/request'
 
 const props = defineProps({
   columns: Object,
   isSelect: Boolean,
   list: Object,
-});
+})
 
 const result = reactive({
   dataSource: [],
-});
+})
 
 // 插槽的实例
-const slots = useSlots();
+const slots = useSlots()
 
 // 渲染的数据
-const renderArr = Object.keys(slots);
+const renderArr = Object.keys(slots)
 
-console.log(renderArr);
+console.log(renderArr)
 
-const emits = defineEmits(["batch"]);
+const emits = defineEmits(['batch'])
 
 // 是否多选
 const rowSelection = {
   onChange: (selectedRowKeys: any, selectedRows: any) => {
-    console.log(selectedRowKeys, selectedRows);
-    emits("batch", selectedRowKeys);
+    console.log(selectedRowKeys, selectedRows)
+    emits('batch', selectedRowKeys)
   },
   getCheckboxProps: (record: any) => ({
-    disabled: record.name === "Disabled User", // Column configuration not to be checked
+    disabled: record.name === 'Disabled User', // Column configuration not to be checked
     name: record.name,
   }),
-};
+}
+
+// 递归处理cheildren
+const formatResult = (result: any) => {
+  return result.map((item: any) => {
+    if (item.meta) {
+      item.meta = JSON.parse(item.meta)
+    }
+    if (item.children && item.children.length === 0) {
+      delete item.children
+    } else {
+      formatResult(item.children)
+    }
+
+    return item
+  })
+}
 
 const loadPage = () => {
   service({
-  url: props.list?.url,
-  method: props.list?.method,
-}).then((res) => {
-  result.dataSource = res.data.map((item: any) => {
-    if (item.children && item.children.length === 0) {
-      delete item.children;
-    }
-    if (item.meta) {
-      item.meta = JSON.parse(item.meta);
-    }
-    return {
-      ...item,
-    };
-  });
-});
+    url: props.list?.url,
+    method: props.list?.method,
+  }).then((res) => {
+    result.dataSource = formatResult(res.data)
+  })
 }
 loadPage()
 </script>

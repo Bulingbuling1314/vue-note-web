@@ -18,7 +18,7 @@
     </div>
   </a-card>
   <a-card title="Menu List" :bordered="false">
-    <b-table ref="bTable" :columns="columns" :list="list">
+    <b-table ref="bTableRef" :columns="columns" :list="list">
       <template #action="record">
         <div class="editable-row-operations">
           <span>
@@ -37,15 +37,15 @@
       </template>
     </b-table>
   </a-card>
-  <add :form="form.add" v-model:visible="show.add" @ok="save" />
+  <add :form="form.add" v-model:visible="show.add" @save="save" />
 </template>
 <script lang="ts">
-import tableMixins from "@/mixins/tableMixins";
-import { IMenuItem } from "@/api/@types/IMenu";
-import add from "./model/add.vue";
-import { ref, reactive } from "@vue/reactivity";
-import { addMenu, removeMenu } from "@/api/menu"
-import { message } from 'ant-design-vue';
+import tableMixins from '@/mixins/tableMixins'
+import { IMenuItem } from '@/api/@types/IMenu'
+import add from './model/add.vue'
+import { ref, reactive } from '@vue/reactivity'
+import { addMenu, removeMenu } from '@/api/menu'
+import { message } from 'ant-design-vue'
 
 export default {
   components: {
@@ -56,10 +56,10 @@ export default {
     const bTableRef = ref()
     const show = reactive({
       add: false,
-    });
+    })
     const form = reactive({
       add: {},
-    });
+    })
 
     const openAdd = () => {
       form.add = {
@@ -67,39 +67,34 @@ export default {
         name: '',
         meta: {
           name: '',
-          icon: ''
+          icon: '',
         },
         component: '',
         parentId: 0,
-        path: "",
-        role: "",
-        type: "",
-      };
-      show.add = true;
+        path: '',
+        role: '',
+        type: '',
+      }
+      show.add = true
     }
 
     const edit = (item: IMenuItem) => {
-      form.add = item;
-      show.add = true;
-    };
+      form.add = item
+      show.add = true
+    }
     const del = (item: IMenuItem) => {
-      removeMenu({id: item.id}).then(res => {
+      removeMenu({ id: item.id }).then((res) => {
         message.success(res.data)
         bTableRef.value.loadPage()
       })
-    };
-    
-
+    }
 
     const save = (data: any) => {
-        show.add = false;
-        console.log(bTableRef.value)
+      addMenu(data).then((_) => {
+        message.success('操作成功！')
+        show.add = false
         bTableRef.value.loadPage()
-      // addMenu(data).then(_ => {
-      //   message.success('操作成功！')
-      //   show.add = false;
-      //   bTable.value.loadPage()
-      // })
+      })
     }
     return {
       show,
@@ -107,43 +102,43 @@ export default {
       bTableRef,
       columns: [
         {
-          title: "路由名称",
-          dataIndex: "name",
+          title: '路由名称',
+          dataIndex: 'name',
           width: 200,
         },
         {
-          title: "路由地址",
-          dataIndex: "path",
+          title: '路由地址',
+          dataIndex: 'path',
         },
         {
-          title: "路由组件名称",
-          dataIndex: "component",
+          title: '路由组件名称',
+          dataIndex: 'component',
         },
         {
-          title: "路由类型",
-          dataIndex: "type",
+          title: '路由类型',
+          dataIndex: 'type',
         },
         {
-          title: "权限",
-          dataIndex: "role",
+          title: '权限',
+          dataIndex: 'role',
         },
         {
-          title: "Action",
-          dataIndex: "",
-          key: "x",
-          slots: { customRender: "action" },
+          title: 'Action',
+          dataIndex: '',
+          key: 'x',
+          slots: { customRender: 'action' },
         },
       ],
       list: {
-        url: "/bb/web/menu/get",
-        method: "GET",
+        url: '/bb/web/menu/get',
+        method: 'GET',
       },
       edit,
       del,
       openAdd,
-      save
-    };
+      save,
+    }
   },
-};
+}
 </script>
 

@@ -45,7 +45,7 @@
             />
           </div>
           <div @click="changeLanguage">
-            {{ languageName === 0 ? "简体中文" : "English" }}
+            {{ languageName === 0 ? '简体中文' : 'English' }}
           </div>
           <div class="b_header_right_user">
             <a-dropdown :trigger="['click']">
@@ -55,7 +55,7 @@
               </a>
               <template #overlay>
                 <a-menu>
-                  <a-menu-item key="0">{{ $t("NavTop.userName") }}</a-menu-item>
+                  <a-menu-item key="0">{{ $t('NavTop.userName') }}</a-menu-item>
                 </a-menu>
               </template>
             </a-dropdown>
@@ -86,51 +86,51 @@ import {
   getCurrentInstance,
   onMounted,
   createVNode,
-} from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
-import BMenu from "@/components/Menu/index.vue";
-import screenfull from "screenfull";
-import { notification } from "ant-design-vue";
-import { SmileOutlined } from "@ant-design/icons-vue";
-import { timeFix } from "@/utils/util";
+} from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import BMenu from '@/components/Menu/index.vue'
+import screenfull from 'screenfull'
+import { notification } from 'ant-design-vue'
+import { SmileOutlined } from '@ant-design/icons-vue'
+import { timeFix } from '@/utils/util'
 export default defineComponent({
   components: {
     BMenu,
   },
   setup() {
-    const store = useStore();
-    const router = useRouter();
+    const store = useStore()
+    const router = useRouter()
     // @ts-ignore //忽略提示
-    const { proxy } = getCurrentInstance();
-    let languageName = ref(0);
+    const { proxy } = getCurrentInstance()
+    let languageName = ref(0)
 
     const changeLanguage = () => {
-      languageName.value = languageName.value === 0 ? 1 : 0;
-      proxy.$i18n.locale = languageName.value === 0 ? "zh-CN" : "en-US";
-    };
-    const isFullscreen = ref(false);
+      languageName.value = languageName.value === 0 ? 1 : 0
+      proxy.$i18n.locale = languageName.value === 0 ? 'zh-CN' : 'en-US'
+    }
+    const isFullscreen = ref(false)
     let full = () => {
-      isFullscreen.value = !isFullscreen.value;
-      screenfull.isEnabled && screenfull.toggle();
-    };
+      isFullscreen.value = !isFullscreen.value
+      screenfull.isEnabled && screenfull.toggle()
+    }
     const logout = () => {
-      store.dispatch("Logout");
-    };
+      store.dispatch('Logout')
+    }
     // console.log(store.state.user);
     onMounted(() => {
       // console.log(store);
       notification.open({
         message:
-          `Small Baby ${store.getters.userInfo.nickName}，` + timeFix() + " !",
+          `Small Baby ${store.getters.userInfo.nickName}，` + timeFix() + ' !',
         description: `该账号截至目前已经登陆过本网站${
           store.getters.userInfo.loginCount || 0
         }次`,
-        top: "60px",
-        icon: createVNode(SmileOutlined, { style: "color: #108ee9" }),
+        top: '60px',
+        icon: createVNode(SmileOutlined, { style: 'color: #108ee9' }),
         duration: null,
-      });
-    });
+      })
+    })
     return {
       selectedKeys: ref<string[]>([store.getters.currentMenu]),
       collapsed: ref<boolean>(false),
@@ -143,9 +143,9 @@ export default defineComponent({
       logout,
       languageName,
       changeLanguage,
-    };
+    }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 </style>

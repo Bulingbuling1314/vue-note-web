@@ -1,11 +1,15 @@
 import mapboxgl from "mapbox-gl";
 import * as dl from "@deck.gl/layers";
 import * as dm from "@deck.gl/mapbox";
+import * as da from "@deck.gl/aggregation-layers"
+import * as dg from "@deck.gl/geo-layers"
 export default class Map {
     $el: any = {};
     $map: any = {};
-    $dl: any = {};
-    $dm: any = {};
+    $dl: any = dl;
+    $dm: any = dm;
+    $da: any = da
+    $dg: any = dg
     myMapbox: any = {};
     option: any = {};
 
@@ -13,8 +17,6 @@ export default class Map {
         this.$el = el;
         this.$map = mapboxgl;
         this.option = option;
-        this.$dl = dl;
-        this.$dm = dm;
     }
 
     reloadMap(option: any) {

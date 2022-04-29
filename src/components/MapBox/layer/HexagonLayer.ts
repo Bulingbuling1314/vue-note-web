@@ -41,16 +41,14 @@ export default class HexagonLayer {
             radius: 4000, // 六角半径，以米为单位
             elevationScale: 4,
             autoHighlight: true,
+            getColorValue: (points: any) => {
+                return points.length;
+            },
             highlightColor: (d: any) => [255, 179, 0],
             getPosition: (d: any) => d.geometry.coordinates,
             onClick: (d: any) => this.onClickHandler(d),
-            lightSettings: {
-                lightsPosition: [-0.144528, 49.739968, 8000, -3.807751, 54.104682, 8000],
-                ambientRatio: 0.4,
-                diffuseRatio: 0.6,
-                specularRatio: 0.2,
-                lightsStrength: [0.8, 0.0, 0.8, 0.0],
-                numberOfLights: 2
+            onSetColorDomain: (d: any) => {
+                console.log(d)
             }
         })
         this.myMapbox.addLayer(layer, 'waterway-label');

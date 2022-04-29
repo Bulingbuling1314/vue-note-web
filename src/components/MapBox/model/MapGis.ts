@@ -3,8 +3,21 @@ import GeoJsonLayer from "../layer/GeoJsonLayer";
 import HexagonLayer from "../layer/HexagonLayer";
 import H3ClusterLayer from "../layer/H3ClusterLayer";
 import ScreenGridLayer from "../layer/ScreenGridLayer";
+interface mapType {
+    [key: string]: any
+    GeoJsonLayer: any
+    HexagonLayer: any
+    H3ClusterLayer: any
+    ScreenGridLayer: any
+}
 export default class MapGis extends Map {
     mapBox: any = {};
+    mapType: mapType = {
+        'GeoJsonLayer': GeoJsonLayer,
+        'HexagonLayer': HexagonLayer,
+        'H3ClusterLayer': H3ClusterLayer,
+        'ScreenGridLayer': ScreenGridLayer
+    }
     /**
      * @地图标点展示类型
      * hexagonal 六边形
@@ -28,10 +41,10 @@ export default class MapGis extends Map {
             antialias: true // create the gl context with MSAA antialiasing, so custom layers are antialiased
         });
         // //引用mapbox-gl和deck.gl的类库
-        console.log(this.$dl, 'dl')
-        console.log(this.$dm, 'dm')
-        console.log(this.$da, 'da')
-        console.log(this.$dg, 'dg')
+        // console.log(this.$dl, 'dl')
+        // console.log(this.$dm, 'dm')
+        // console.log(this.$da, 'da')
+        // console.log(this.$dg, 'dg')
         this.loadMap();
     }
 
@@ -42,9 +55,14 @@ export default class MapGis extends Map {
                     ? this.option.center
                     : [139.66498106718063, 35.78875479722508]
             });
-
+            const typeStr: string = this.option.type
+            if(!typeStr) {
+                new HexagonLayer(this.myMapbox, {})
+            } else {
+                new this.mapType[typeStr](this.myMapbox, {})
+            }
             // new GeoJsonLayer(this.myMapbox, {})
-            new HexagonLayer(this.myMapbox, {})
+            // new HexagonLayer(this.myMapbox, {})
             // new H3ClusterLayer(this.myMapbox, {})
             // new ScreenGridLayer(this.myMapbox, {})
 
@@ -76,7 +94,7 @@ export default class MapGis extends Map {
 
     loadActionElement() {
         this.$el.innerHTML = "";
-        this.$el.style = "width: 100%;height: 100%;position: relative;";
+        this.$el.style = "width: 100%;height: calc(100% - 74px);position: relative;";
         this.mapBox = document.createElement("div");
         this.mapBox.style = "width: 100%;height: 100%;";
         const actionList = document.createElement("div");

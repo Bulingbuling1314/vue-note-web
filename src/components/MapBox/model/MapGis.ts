@@ -3,20 +3,13 @@ import GeoJsonLayer from "../layer/GeoJsonLayer";
 import HexagonLayer from "../layer/HexagonLayer";
 import H3ClusterLayer from "../layer/H3ClusterLayer";
 import ScreenGridLayer from "../layer/ScreenGridLayer";
-interface mapType {
-    [key: string]: any
-    GeoJsonLayer: any
-    HexagonLayer: any
-    H3ClusterLayer: any
-    ScreenGridLayer: any
-}
 export default class MapGis extends Map {
     mapBox: any = {};
-    mapType: mapType = {
-        'GeoJsonLayer': GeoJsonLayer,
-        'HexagonLayer': HexagonLayer,
-        'H3ClusterLayer': H3ClusterLayer,
-        'ScreenGridLayer': ScreenGridLayer
+    mapType: any = {
+        GeoJsonLayer,
+        HexagonLayer,
+        H3ClusterLayer,
+        ScreenGridLayer
     }
     /**
      * @地图标点展示类型
@@ -61,10 +54,6 @@ export default class MapGis extends Map {
             } else {
                 new this.mapType[typeStr](this.myMapbox, {})
             }
-            // new GeoJsonLayer(this.myMapbox, {})
-            // new HexagonLayer(this.myMapbox, {})
-            // new H3ClusterLayer(this.myMapbox, {})
-            // new ScreenGridLayer(this.myMapbox, {})
 
             this.myMapbox.on("click", (e: any) => {
                 this.handleClick(e);

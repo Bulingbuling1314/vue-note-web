@@ -29,7 +29,7 @@ export default class MapGis extends Map {
         this.myMapbox = new this.$map.Map({
             container: this.mapBox,
             boxZoom: true,
-            zoom: 5,
+            zoom: 8,
             style: "mapbox://styles/mapbox/dark-v10",
             antialias: true // create the gl context with MSAA antialiasing, so custom layers are antialiased
         });
@@ -42,32 +42,12 @@ export default class MapGis extends Map {
     }
 
     loadMap() {
-        this.myMapbox.on("load", () => {
-            this.myMapbox.flyTo({
-                center: this.option.center
-                    ? this.option.center
-                    : [139.66498106718063, 35.78875479722508]
-            });
-            const typeStr: string = this.option.type
-            if(!typeStr) {
-                new HexagonLayer(this.myMapbox, {})
-            } else {
-                new this.mapType[typeStr](this.myMapbox, {})
-            }
-
-            this.myMapbox.on("click", (e: any) => {
-                this.handleClick(e);
-            });
-        });
-    }
-    // 点击事件
-    handleClick(e: any) {
-        console.log(e)
-        
-        var features = this.myMapbox.queryRenderedFeatures(e.point, {
-            layers: ["hexagon-layer"]
-        });
-        console.log(features)
+        const typeStr: string = this.option.type
+        if(!typeStr) {
+            new HexagonLayer(this.myMapbox, {})
+        } else {
+            new this.mapType[typeStr](this.myMapbox, {})
+        }
     }
 
     // 切换显示类型

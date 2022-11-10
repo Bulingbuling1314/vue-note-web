@@ -78,6 +78,7 @@ const user = {
             commit('SET_USER_MENU', routes)
             commit('SET_USER_INFO', JSON.parse(GET_USER_INFO() || "{}"))
             setDefaultRoute([userMenu])
+            console.log(userMenu)
             router.addRoute(userMenu);
         },
 

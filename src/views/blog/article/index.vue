@@ -55,10 +55,10 @@
 </template>
 <script lang="ts">
 import tableMixins from '@/mixins/tableMixins'
-import { IMenuItem } from '@/api/@types/IMenu'
+import { IArticle } from '@/api/@types/IArticle'
 import add from './model/add.vue'
 import { ref, reactive } from '@vue/reactivity'
-import { addMenu, removeMenu } from '@/api/menu'
+import { createArticle } from '@/api/article'
 import { message } from 'ant-design-vue'
 
 export default {
@@ -72,42 +72,39 @@ export default {
             add: false
         })
         const form = reactive({
-            add: {}
+            add: {
+                title: '',
+                intro: '',
+                blogContent: ''
+            }
         })
 
         const openAdd = () => {
             form.add = {
-                id: 0,
-                name: '',
-                meta: {
-                    name: '',
-                    icon: ''
-                },
-                component: '',
-                parentId: 0,
-                path: '',
-                role: '',
-                type: ''
+                title: '',
+                intro: '',
+                blogContent: ''
             }
             show.add = true
         }
 
-        const edit = (item: IMenuItem) => {
-            form.add = item
-            show.add = true
+        const edit = (item: IArticle) => {
+            console.log(bTableRef)
+            bTableRef.value.loadPage()
+            // form.add = item
+            // show.add = true
         }
-        const del = (item: IMenuItem) => {
-            removeMenu({ id: item.id }).then((res) => {
-                message.success(res.data)
-                bTableRef.value.loadPage()
-            })
+        const del = (item: IArticle) => {
+            // removeMenu({ id: item.id }).then((res) => {
+            //     message.success(res.data)
+            //     bTableRef.value.loadPage()
+            // })
         }
 
         const save = (data: any) => {
-            addMenu(data).then((_) => {
+            createArticle(data).then((_) => {
                 message.success('操作成功！')
                 show.add = false
-                bTableRef.value.loadPage()
             })
         }
         return {
@@ -116,25 +113,29 @@ export default {
             bTableRef,
             columns: [
                 {
-                    title: '路由名称',
-                    dataIndex: 'name',
+                    title: 'Id',
+                    dataIndex: 'id',
                     width: 200
                 },
                 {
-                    title: '路由地址',
-                    dataIndex: 'path'
+                    title: '标题',
+                    dataIndex: 'title'
                 },
                 {
-                    title: '路由组件名称',
-                    dataIndex: 'component'
+                    title: '创建时间',
+                    dataIndex: 'createDate'
                 },
                 {
-                    title: '路由类型',
-                    dataIndex: 'type'
+                    title: '更新时间',
+                    dataIndex: 'updateDate'
                 },
                 {
-                    title: '权限',
-                    dataIndex: 'role'
+                    title: '作者',
+                    dataIndex: 'author'
+                },
+                {
+                    title: '描述',
+                    dataIndex: 'intro'
                 },
                 {
                     title: 'Action',
@@ -144,7 +145,7 @@ export default {
                 }
             ],
             list: {
-                url: '/bb/web/menu/get',
+                url: '/bb/web/article/getAll',
                 method: 'GET'
             },
             edit,

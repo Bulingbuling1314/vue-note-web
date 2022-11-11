@@ -22,6 +22,17 @@ const messages={
                 name: '菜单名称',
                 role: '菜单权限'
             }
+        },
+        Article: {
+            list: {
+                id: '序号',
+                title: '文章标题',
+                intro: '文章简介',
+                author: '作者',
+                createDate: '创建时间',
+                updateDate: '更新时间',
+                blogContent: '文章内容'
+            }
         }
     },
     "en-US":{
@@ -46,6 +57,17 @@ const messages={
                 icon: '图标',
                 name: '菜单名称',
                 role: '菜单权限'
+            }
+        },
+        Article: {
+            list: {
+                id: '序号',
+                title: '文章标题',
+                intro: '文章简介',
+                author: '作者',
+                createDate: '创建时间',
+                updateDate: '更新时间',
+                blogContent: '文章内容'
             }
         }
     }

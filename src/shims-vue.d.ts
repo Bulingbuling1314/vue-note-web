@@ -39,3 +39,4 @@ declare module '*@deck.gl/core' {
 declare module '@kangc/v-md-editor';
 declare module '@kangc/v-md-editor/lib/theme/vuepress.js'
 declare module 'prismjs'
+declare module '@kangc/v-md-editor/lib/theme/github.js'

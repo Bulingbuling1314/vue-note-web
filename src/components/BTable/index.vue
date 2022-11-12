@@ -81,4 +81,7 @@ const loadPage = () => {
     })
 }
 loadPage()
+
+// 子组件必须暴露该方法 父组件才能调用
+defineExpose({ loadPage })
 </script>

@@ -14,3 +14,16 @@ import { IArticle } from "./@types/IArticle";
         data
     });
 };
+
+/**
+ * @description: 删除文章
+ * @params {} params
+ * @return {Promise}
+ */
+ export const removeArticle = (params: {id: number}): Promise<any> => {
+    return service({
+        url: "/bb/web/article/removeById",
+        method: "POST",
+        params
+    });
+};

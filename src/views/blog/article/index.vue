@@ -57,8 +57,8 @@
 import tableMixins from '@/mixins/tableMixins'
 import { IArticle } from '@/api/@types/IArticle'
 import add from './model/add.vue'
-import { ref, reactive } from '@vue/reactivity'
-import { createArticle } from '@/api/article'
+import { ref, reactive, onMounted } from 'vue'
+import { createArticle, removeArticle } from '@/api/article'
 import { message } from 'ant-design-vue'
 
 export default {
@@ -89,16 +89,14 @@ export default {
         }
 
         const edit = (item: IArticle) => {
-            console.log(bTableRef)
-            bTableRef.value.loadPage()
-            // form.add = item
-            // show.add = true
+            form.add = { ...form.add, ...item }
+            show.add = true
         }
         const del = (item: IArticle) => {
-            // removeMenu({ id: item.id }).then((res) => {
-            //     message.success(res.data)
-            //     bTableRef.value.loadPage()
-            // })
+            removeArticle({ id: item.id }).then((res) => {
+                message.success(res.data)
+                bTableRef.value.loadPage()
+            })
         }
 
         const save = (data: any) => {
@@ -107,15 +105,17 @@ export default {
                 show.add = false
             })
         }
+        onMounted(() => {
+            console.log(bTableRef)
+        })
         return {
             show,
             form,
             bTableRef,
             columns: [
                 {
-                    title: 'Id',
-                    dataIndex: 'id',
-                    width: 200
+                    title: '序号',
+                    dataIndex: 'id'
                 },
                 {
                     title: '标题',

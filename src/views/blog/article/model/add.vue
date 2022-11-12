@@ -1,7 +1,7 @@
 <template>
     <a-modal
         v-bind="$attrs"
-        width="1000px"
+        width="1200px"
         title="ADD ARTICLE"
         @ok="handleOk"
     >
@@ -28,7 +28,10 @@
                 :label="$t('Article.list.blogContent')"
                 name="blogContent"
             >
-                <a-textarea v-model:value="form.blogContent" />
+                <v-md-editor
+                    v-model="form.blogContent"
+                    height="500px"
+                ></v-md-editor>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -47,6 +50,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const formRef = ref()
         const menuList: Array<any> = reactive([])
+
         const rules = {
             title: [
                 {
@@ -60,14 +64,6 @@ export default defineComponent({
                     required: true,
                     message: 'Please input Activity zone',
                     trigger: 'blur'
-                }
-            ],
-            blogContent: [
-                {
-                    required: true,
-                    message: 'Please pick a date',
-                    trigger: 'change',
-                    type: 'object'
                 }
             ]
         }
@@ -89,12 +85,13 @@ export default defineComponent({
             const data = {
                 ...props.form
             }
+            console.log(data)
             emit('save', data)
         }
         return {
             formRef,
             labelCol: { span: 4 },
-            wrapperCol: { span: 14 },
+            wrapperCol: { span: 20 },
             other: '',
             rules,
             onSubmit,

@@ -11,6 +11,11 @@ import { setupAntdIcon } from '@/antd/Icons'
 import { createI18n } from "vue-i18n";
 import messages from "@/utils/language";
 
+import VueMarkdownEditor from '@/plugs/VueMarkdownEditor'
+
+
+
+
 const i18n = createI18n({
     locale: "zh-CN", //默认显示的语言
     messages,
@@ -18,4 +23,4 @@ const i18n = createI18n({
 const app = createApp(App)
 setupAntdIcon(app) // antd图标
 
-app.use(store).use(router).use(Antd).use(i18n).mount('#app')
+app.use(store).use(router).use(Antd).use(i18n).use(VueMarkdownEditor).mount('#app')

@@ -9,7 +9,7 @@ import { IArticle } from "./@types/IArticle";
  */
  export const createArticle = (data: IArticle): Promise<any> => {
     return service({
-        url: "/bb/web/article/create",
+        url: "/bb/web/article/save",
         method: "POST",
         data
     });

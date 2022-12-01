@@ -29,7 +29,7 @@ module.exports = {
         proxy: {
             '/bb': {
                 // target: 'http://localhost:8098/bb',
-                target: 'http://www.web.liubingbing.xyz:8098/bb',
+                target: 'https://www.liubingbing.xyz:8098/bb',
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {

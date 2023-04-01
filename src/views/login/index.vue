@@ -27,7 +27,7 @@
                 浏览器不支持 video 标签，建议升级浏览器。
             </video>
             <div class="poster hidden" v-if="!videoState.vedioCanPlay">
-                <img :style="videoState.fixStyle" src="PATH_TO_JPEG" alt="" />
+                <img :style="videoState.fixStyle" src="@/assets/images/bg.jpeg" alt="" />
             </div>
         </div>
     </div>

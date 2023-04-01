@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <img width="500" src="@/assets/logo02.png" alt="">
+        <img width="500" src="@/assets/images/logo02.png" alt="">
         <h1 class="theme_color_01">{{ $t('HomePage.title') }}</h1>
         <span>Vite + Vue3 + Ts + iview + axios</span>
         <div class="github">

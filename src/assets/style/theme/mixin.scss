@@ -4,7 +4,7 @@
 @mixin themeify {
     @each $theme-key, $theme-map in $themes {
         // !global 把局部变量强升为全局变量
-        $theme-map: $theme-map !global;
+        $theme-map: $theme-map;
         // 判断html的data-theme的属性值  #{}是sass的插值表达式
         // &是sass嵌套里的父容器标识   @content是混合器插槽，像vue的slot
         [data-theme="#{$theme-key}"] & {
@@ -13,12 +13,10 @@
     }
 }
 
-
 // 声明一个根据Key获取颜色的function
 @function themed($key) {
     @return map-get($theme-map, $key);
 }
-
 
 // 获取字体颜色
 @mixin font_color($color) {

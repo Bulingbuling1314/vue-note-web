@@ -1,14 +1,18 @@
 <template>
-  <a-result status="404" title="404" :sub-title="$t('LanguagePage.subTitle')">
-  </a-result>
+    <div class="container">
+        weqwe
+    </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue"
 
-}
+export default defineComponent({
+    name: "404",
+    setup() { }
+})
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.container {}
 </style>

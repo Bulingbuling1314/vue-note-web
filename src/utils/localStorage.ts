@@ -1,13 +1,26 @@
-export const SET_TOKEN = (token: string): void => {
-    localStorage.setItem("Token", token);
+export const GET_TOKEN = () => {
+    return localStorage.getItem('token')
 }
 
-export const GET_TOKEN = (): string | null => {
-    return localStorage.getItem("Token");
+export const SET_TOKEN = (token: string) => {
+    localStorage.setItem('token', token)
 }
 
 export const REMOVE_TOKEN = () => {
-    localStorage.removeItem("Token");
+    localStorage.removeItem('token')
+}
+
+
+export const GET_MENU = () => {
+    return localStorage.getItem("menu");
+}
+
+export const SET_MENU = (menu: string): void => {
+    localStorage.setItem("menu", menu);
+}
+
+export const REMOVE_MENU = (): void => {
+    localStorage.removeItem("menu");
 }
 
 export const SET_USER_INFO = (user: string): void => {
@@ -20,17 +33,4 @@ export const GET_USER_INFO = (): string | null => {
 
 export const REMOVE_USER_INFO = () => {
     localStorage.removeItem("user");
-}
-
-/** 储存路由 */
-export const SET_MENU = (menu: string): void => {
-    localStorage.setItem("menu", menu);
-}
-
-export const GET_MENU = (): string | null => {
-    return localStorage.getItem("menu");
-}
-
-export const REMOVE_MENU = () => {
-    localStorage.removeItem("menu");
 }

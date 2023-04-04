@@ -1,3 +1,4 @@
+import zh from 'view-ui-plus/dist/locale/zh-CN';
 export default {
     title: "中文",
     NavTop: {
@@ -32,5 +33,8 @@ export default {
             updateDate: '更新时间',
             blogContent: '文章内容'
         }
-    }
+    },
+
+
+    ...zh
 };

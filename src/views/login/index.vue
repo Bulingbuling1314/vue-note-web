@@ -2,7 +2,7 @@
     <!-- http://bpic.588ku.com/video_listen/588ku_video/19/12/30/18/21/17/video5e09cf9dd0bd4.mp4 -->
     <div id="userLayout">
         <div class="video-container">
-            <div :style="videoState.fixStyle" class="filter">
+            <div class="filter">
                 <a href="">
                     <img src="@/assets/logo.png" width="500" alt="" />
                 </a>
@@ -13,8 +13,8 @@
                     <FormItem path="password" label="密码">
                         <Input v-model="form.password" type="password" @keydown.enter.prevent />
                     </FormItem>
-                    <FormItem>
-                        <Button type="primary" @click="onSubmit" block>
+                    <FormItem class="button-group">
+                        <Button type="primary" @click="onSubmit" long>
                             登录
                         </Button>
                     </FormItem>
@@ -51,9 +51,10 @@ const canplay = () => {
 }
 onMounted(() => {
     const windowHeight = document.body.clientHeight
+    const windowWidth = document.body.clientWidth
     videoState.fixStyle = {
-        height: windowHeight + 'px',
-        width: windowHeight / 0.5625 + 'px'
+        width: windowWidth + 'px',
+        height: windowHeight + 'px'
     }
 })
 
@@ -126,6 +127,7 @@ const login = (form: ILoginParams) => {
 
     video {
         width: 100%;
+        object-fit: cover;
     }
 
     .filter {
@@ -135,6 +137,10 @@ const login = (form: ILoginParams) => {
         top: 20%;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .button-group {
+        margin: 30px 0 0;
     }
 }
 </style>

@@ -9,7 +9,8 @@ export default defineConfig({
     resolve: {
         alias: {
             // 如果报错__dirname找不到，需要安装node,执行npm install @types/node --save-dev
-            "@": path.resolve(__dirname, "src")
+            "@": path.resolve(__dirname, "src"),
+            'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
         },
     },
     // 生产环境路径，类似webpack的assetsPath
@@ -40,8 +41,8 @@ export default defineConfig({
         host: "0.0.0.0",
         proxy: {
             '/bb': {
-                // target: 'https://www.bulingbuling.xyz:8098/bb',
-                target: 'https://localhost:8098',
+                target: 'https://www.admin.bulingbuling.xyz:8098',
+                // target: 'https://localhost:8098',
                 changeOrigin: true,
                 secure: false, // 如果是https接口，需要配置这个参数
                 // ws: true, //websocket支持

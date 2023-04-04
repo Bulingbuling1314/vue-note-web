@@ -38,9 +38,9 @@
                         <BreadcrumbItem>Components</BreadcrumbItem>
                         <BreadcrumbItem>Layout</BreadcrumbItem>
                     </Breadcrumb>
-                    <Content :style="{ padding: '24px', minHeight: '280px', background: '#fff' }">
+                    <Content>
                         <div class="layout-content">
-                            <router-view v-slot="{ Component }" class="router-view">
+                            <router-view v-slot="{ Component }">
                                 <transition enter-active-class="animate__animated animate__bounceInRight"
                                     leave-active-class="animate__animated animate__bounceOutLeft">
                                     <component :is="Component" />
@@ -86,6 +86,11 @@ const logout = () => {
     background: #f5f7f9;
     position: relative;
     overflow: hidden;
+
+    .layout-content {
+        height: 100%;
+        overflow: hidden;
+    }
 
     .ivu-layout {
         height: 100%;

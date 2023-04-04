@@ -1,0 +1,201 @@
+[
+    {
+        "id": 1,
+        "name": "HOME",
+        "path": "home",
+        "component": "home",
+        "meta": {
+            "icon": "HomeOutlined",
+            "name": "首页"
+        },
+        "type": 2,
+        "role": "admin",
+        "parentId": 0,
+        "children": []
+    },
+    {
+        "id": 2,
+        "name": "TEST1",
+        "path": "test1",
+        "component": "test1",
+        "meta": {
+            "icon": "FlagOutlined",
+            "name": "测试1"
+        },
+        "type": 2,
+        "role": "admin",
+        "parentId": 0,
+        "children": []
+    },
+    {
+        "id": 3,
+        "name": "TEST2",
+        "path": "test2",
+        "component": "test2",
+        "meta": {
+            "icon": "FireOutlined",
+            "name": "测试2"
+        },
+        "type": 2,
+        "role": "admin",
+        "parentId": 0,
+        "children": []
+    },
+    {
+        "id": 4,
+        "name": "LANGUAGE",
+        "path": "language",
+        "component": "language",
+        "meta": {
+            "icon": "FontColorsOutlined",
+            "name": "国际化"
+        },
+        "type": 2,
+        "role": "admin",
+        "parentId": 0,
+        "children": []
+    },
+    {
+        "id": 5,
+        "name": "CHART",
+        "path": "charts",
+        "component": "",
+        "meta": {
+            "icon": "FundOutlined",
+            "name": "图表"
+        },
+        "type": 1,
+        "role": "admin",
+        "parentId": 0,
+        "children": [
+            {
+                "id": 6,
+                "name": "BAR",
+                "path": "bar",
+                "component": "",
+                "meta": {
+                    "icon": "BarChartOutlined",
+                    "name": "柱状图"
+                },
+                "type": 1,
+                "role": "admin",
+                "parentId": 5,
+                "children": [
+                    {
+                        "id": 7,
+                        "name": "BARX",
+                        "path": "barX",
+                        "component": "charts/bar/barX",
+                        "meta": {
+                            "icon": "LineChartOutlined",
+                            "name": "竖柱状图"
+                        },
+                        "type": 2,
+                        "role": "admin",
+                        "parentId": 6,
+                        "children": []
+                    },
+                    {
+                        "id": 8,
+                        "name": "BARY",
+                        "path": "barY",
+                        "component": "charts/bar/barY",
+                        "meta": {
+                            "icon": "LineChartOutlined",
+                            "name": "横折线图"
+                        },
+                        "type": 2,
+                        "role": "admin",
+                        "parentId": 6,
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "name": "LINE",
+                "path": "line",
+                "component": "charts/line",
+                "meta": {
+                    "icon": "LineChartOutlined",
+                    "name": "折线图"
+                },
+                "type": 2,
+                "role": "admin",
+                "parentId": 5,
+                "children": []
+            },
+            {
+                "id": 59,
+                "name": "PIE",
+                "path": "pie",
+                "component": "charts/pie",
+                "meta": {
+                    "name": "饼图",
+                    "icon": "PieChartOutlined"
+                },
+                "type": 2,
+                "role": "admin",
+                "parentId": 5,
+                "children": []
+            },
+            {
+                "id": 64,
+                "name": "MAP",
+                "path": "map",
+                "component": "charts/map",
+                "meta": {
+                    "name": "地图",
+                    "icon": "LineChartOutlined"
+                },
+                "type": 2,
+                "role": "admin",
+                "parentId": 5,
+                "children": []
+            }
+        ]
+    },
+    {
+        "id": 40,
+        "name": "RELAY",
+        "path": "relay",
+        "component": "charts/bar/barX",
+        "meta": {
+            "name": "relay",
+            "icon": "LineChartOutlined"
+        },
+        "type": 2,
+        "role": "admin",
+        "parentId": 0,
+        "children": []
+    },
+    {
+        "id": 77,
+        "name": "BLOG",
+        "path": "blog",
+        "component": "",
+        "meta": {
+            "name": "博客管理",
+            "icon": "FundOutlined"
+        },
+        "type": 1,
+        "role": "admin",
+        "parentId": 0,
+        "children": [
+            {
+                "id": 78,
+                "name": "ARTICLE",
+                "path": "article",
+                "component": "blog/article",
+                "meta": {
+                    "name": "文章列表",
+                    "icon": "FundOutlined"
+                },
+                "type": 2,
+                "role": "admin",
+                "parentId": 77,
+                "children": []
+            }
+        ]
+    }
+]

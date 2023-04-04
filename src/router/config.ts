@@ -17,9 +17,9 @@ import RouterView from '@/components/RouterView/index.vue'
 // }
 const loadView = (view: string) => { // 路由懒加载
     // 判断当前路径下是否有该文件
-    const files = Object.keys(import.meta.glob('@/views/**'))
-    if (files.find(file => file.includes(view + '/index.vue'))) {
-        return () => import(`@/views/${view}/index.vue`);
+    const files = import.meta.glob('../views/**')
+    if (Object.keys(files).find(file => file.includes(view + '/index.vue'))) {
+        return files[`../views/${view}/index.vue`]
     } else {
         return () => import(`@/views/404/index.vue`);
     }

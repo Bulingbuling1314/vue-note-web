@@ -1,3 +1,4 @@
+import en from 'view-ui-plus/dist/locale/en-US';
 export default {
     title: "English",
     NavTop: {
@@ -32,5 +33,9 @@ export default {
             updateDate: '更新时间',
             blogContent: '文章内容'
         }
-    }
+    },
+
+
+
+    ...en
 };

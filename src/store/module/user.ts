@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import router from '@/router'
 import { formatDynamicRouting, setDefaultRoute, clone } from '@/router/config'
+import localRouters from '@/router/localRouters.json'
 import { SET_TOKEN, REMOVE_TOKEN, GET_MENU, SET_MENU, REMOVE_MENU, GET_USER_INFO, REMOVE_USER_INFO } from "@/utils";
 import Layout from "@/layout/index.vue"
 import { login, LoginParams, getMenu } from "@/service";
@@ -32,26 +33,38 @@ export const useUserStore = defineStore('user', {
 
         async setMenu() {
             let myMenu: Array<any>;
+            const menuType = 1  // 1---后台加载路由 0---本地配置路由
             if (GET_MENU()) {
                 myMenu = clone(JSON.parse(GET_MENU() || '[]'))
                 this.setRouter(myMenu)
             } else {
-                await getMenu().then(res => {
-                    myMenu = clone(res.data)
-                    if (myMenu.length === 0) {
-                        myMenu.push({
-                            "name": "HOME",
-                            "path": "home",
-                            "component": "home",
-                            "meta": {
-                                "icon": "HomeOutlined",
-                                "name": "首页"
-                            }
-                        })
+                if (!menuType) {
+                    // 后台获取路由
+                    await getMenu().then(res => {
+                        myMenu = clone(res.data)
+                        if (myMenu.length === 0) {
+                            myMenu.push({
+                                "name": "HOME",
+                                "path": "home",
+                                "component": "home",
+                                "meta": {
+                                    "icon": "HomeOutlined",
+                                    "name": "首页"
+                                }
+                            })
+                        }
+                        console.log(myMenu, 53)
+                        SET_MENU(JSON.stringify(myMenu))
+                        this.setRouter(myMenu)
+                    })
+                }
+                if (menuType) {
+                    // 加载本地配置路由
+                    if (localRouters.length > 0) {
+                        SET_MENU(JSON.stringify(localRouters))
+                        this.setRouter(localRouters)
                     }
-                    SET_MENU(JSON.stringify(myMenu))
-                    this.setRouter(myMenu)
-                })
+                }
             }
         },
 
